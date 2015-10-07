@@ -1,0 +1,28 @@
+{
+  "name": "SAJU - TJRS - Extension",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "homepage_url": "https://github.com/SAJU-UFRGS/",
+  "description": "SAJU Secretário",
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://www.tjrs.jus.br/busca/?tb=proc"
+      ],
+      "run_at": "document_start",
+      "js": [
+        "fill_processes.js"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icon16.png"
+  },
+  "page_action": {
+    "default_icon": "icon16.png",
+    "default_name": "Lista de Processos"
+  }
+}
