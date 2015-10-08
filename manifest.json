@@ -17,7 +17,7 @@
       "matches": [
         "http://www.tjrs.jus.br/busca/?tb=proc"
       ],
-      "run_at": "document_start",
+      "run_at": "document_end",
       "js": [
         "fill_processes.js"
       ]
