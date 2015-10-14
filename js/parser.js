@@ -1,3 +1,3 @@
 function parseToListOfProcesses(value) {
-  return [value];
+  return value.split(',');
 }
