@@ -1,4 +1,5 @@
-var processNumbers = ['00151400106370'];
+chrome.storage.local.set({'processes': {'00151400106370': {}}});
+
 var iframe = document.getElementById('iframeBusca');
 
 iframe.onload = function() {
@@ -7,12 +8,16 @@ iframe.onload = function() {
   var processInput = iframeDocument.getElementById('num_processo_mask');
   var processInfo = iframeDocument.getElementById('conteudo');
 
-  if (processInput) {
-    processInput.setAttribute('value', processNumbers[0]);
-  } else if (processInfo) {
-    var processURI = processInfo.getElementsByTagName('table')[0].firstChild.baseURI;
-    if (processURI.indexOf(processNumbers[0]) > -1) {
-      processNumbers.splice(0, 1);
+  chrome.storage.local.get('processes', function(data) {
+    var processNumbers = data.processes;
+    if (processInput) {
+      processInput.setAttribute('value', Object.keys(processNumbers)[0]);
+    } else if (processInfo) {
+      var processURI = processInfo.getElementsByTagName('table')[0].firstChild.baseURI;
+      if (processURI.indexOf(processNumbers[0]) > -1) {
+        processNumbers.splice(0, 1);
+      }
     }
-  }
+  });
+
 };

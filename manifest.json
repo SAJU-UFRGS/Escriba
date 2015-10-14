@@ -5,6 +5,7 @@
   "homepage_url": "https://github.com/SAJU-UFRGS/",
   "description": "SAJU Secretário",
   "permissions": [
+    "storage",
     "activeTab"
   ],
   "browser_action": {
