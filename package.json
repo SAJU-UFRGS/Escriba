@@ -1,0 +1,9 @@
+{
+  "name": "escriba",
+  "devDependencies": {
+    "jasmine-node": "latest"
+  },
+  "scripts": {
+    "test": "./node_modules/jasmine-node/bin/jasmine-node spec/"
+  }
+}
