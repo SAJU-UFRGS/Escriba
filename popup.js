@@ -10,8 +10,7 @@ function loadProcesses() {
 }
 
 function getValueFromInput() {
+  var input = document.getElementById('processesInput');
+  return input.value;
 }
 
-function parseToListOfProcesses(value) {
-
-}
