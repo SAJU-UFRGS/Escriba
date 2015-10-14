@@ -1,2 +1,4 @@
-npm install
-npm test
+`npm install`
+
+`npm test`
+
