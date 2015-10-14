@@ -1,9 +1,12 @@
 {
   "name": "escriba",
   "devDependencies": {
-    "jasmine-node": "latest"
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.11",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-jasmine": "^0.3.6"
   },
   "scripts": {
-    "test": "./node_modules/jasmine-node/bin/jasmine-node spec/"
+    "test": "./node_modules/karma/bin/karma start"
   }
 }
