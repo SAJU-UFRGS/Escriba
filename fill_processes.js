@@ -1,6 +1,5 @@
-chrome.storage.local.set({'processes': {'00151400106370': {}}});
-
 var iframe = document.getElementById('iframeBusca');
+var processPattern = /num_processo_mask=(\d+)/;
 
 iframe.onload = function() {
   var iframeDocument = iframe.contentWindow.document;
@@ -8,14 +7,16 @@ iframe.onload = function() {
   var processInput = iframeDocument.getElementById('num_processo_mask');
   var processInfo = iframeDocument.getElementById('conteudo');
 
-  chrome.storage.local.get('processes', function(data) {
-    var processNumbers = data.processes;
+  chrome.storage.local.get(null, function(processNumbers) {
     if (processInput) {
       processInput.setAttribute('value', Object.keys(processNumbers)[0]);
     } else if (processInfo) {
       var processURI = processInfo.getElementsByTagName('table')[0].firstChild.baseURI;
-      if (processURI.indexOf(processNumbers[0]) > -1) {
-        processNumbers.splice(0, 1);
+      var processNumber = processPattern.exec(processURI)[1];
+      if (processNumber) {
+        var processToBeSaved = {};
+        processToBeSaved[processNumber] = { isViewed: true };
+        chrome.storage.local.set(processToBeSaved);
       }
     }
   });
