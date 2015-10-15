@@ -20,7 +20,8 @@
       ],
       "run_at": "document_end",
       "js": [
-        "fill_processes.js"
+        "js/ProcessStore.js",
+        "js/processesTracker.js"
       ]
     }
   ],
