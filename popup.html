@@ -9,15 +9,14 @@
     <title>Getting Started Extension's Popup</title>
     <style>
       body {
+        width:500px;
+        height:500px; 
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
       }
-      #status {
-        /* avoid an excessively wide status text */
-        white-space: pre;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 400px;
+      #processesInput {
+        width: 400px;
+        height:300px;
       }
     </style>
 
@@ -32,7 +31,7 @@
   </head>
   <body>
     <p>HI!</p>
-    <p><label>Lista de processos: <input id="processesInput" type="text"/></label></p>
+    <p><label>Lista de processos: <textarea id="processesInput" type="text"></textarea></label></p>
     <button type="submit" on >Registrar</button>
   </body>
 </html>
