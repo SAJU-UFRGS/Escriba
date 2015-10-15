@@ -1,19 +1,18 @@
 var ProcessStore = {
-  save: function(processNumber) {
+  save: function(processNumber, optionals) {
     var processToBeSaved = {};
-    processToBeSaved[processNumber] = {};
+    processToBeSaved[processNumber] = optionals || {};
     chrome.storage.local.set(processToBeSaved);
   },
   updateViewStatus: function(processNumber) {
-    var processToBeSaved = {};
-    processToBeSaved[processNumber] = { isViewed: true };
-    chrome.storage.local.set(processToBeSaved);
+    ProcessStore.save(processNumber, { isViewed: true });
   },
   getNextProcess: function(callback) {
-    chrome.storage.local.get(null, function(processNumbers) {
-      var nextProcess = Object.keys(processNumbers)[0];
+    chrome.storage.local.get(null, function(processes) {
+      var nextProcess = Object.keys(processes).filter(function(process) {
+        return !processes[process].isViewed;
+      })[0];
       callback(nextProcess);
-      console.log(processNumbers);
     });
   }
 }
