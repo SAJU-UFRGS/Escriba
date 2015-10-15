@@ -14,5 +14,8 @@ var ProcessStore = {
       })[0];
       callback(nextProcess);
     });
+  },
+  clear: function(callback) {
+    chrome.storage.local.clear(callback);
   }
 }

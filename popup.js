@@ -16,9 +16,8 @@ function getValueFromInput() {
 }
 
 function store(listOfProcesses) {
+  ProcessStore.clear();
   listOfProcesses.forEach(function(process) {
-    var object = {};
-    object[process] = {};
-    chrome.storage.local.set(object);
+    ProcessStore.save(process);
   })
-};
+}
