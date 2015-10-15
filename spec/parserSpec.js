@@ -1,4 +1,4 @@
-describe('Parser', function () {
+describe('parseToListOfProcesses', function () {
   it('should parse one id to a list of one id', function() {
     expect(parseToListOfProcesses("1234")).toEqual(["1234"]);
   });
@@ -6,5 +6,6 @@ describe('Parser', function () {
     expect(parseToListOfProcesses("1,2,3,4,5")).toEqual(["1", "2", "3", "4", "5"]);
   });
 });
+
 
 

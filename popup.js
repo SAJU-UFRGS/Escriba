@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadProcesses() {
   var value = getValueFromInput();
   var listOfProcesses = parseToListOfProcesses(value);
+  store(listOfProcesses);
   console.log(listOfProcesses);
 }
 
@@ -14,3 +15,10 @@ function getValueFromInput() {
   return input.value;
 }
 
+function store(listOfProcesses) {
+  listOfProcesses.forEach(function(process) {
+    var object = {};
+    object[process] = {};
+    chrome.storage.local.set(object);
+  })
+};
