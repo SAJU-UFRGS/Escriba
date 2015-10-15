@@ -1,33 +1,29 @@
 describe('ProcessStore', function() {
-  var setCalled, getCalled, clearCalled;
+  var storage;
+
   beforeEach(function(){
-    setCalled = getCalled = clearCalled = false;
-    chrome.storage = {
-      local: {
-        set: function() { setCalled = true },
-        get: function() { getCalled = true },
-        clear: function() { clearCalled = true }
-      }
-    }
-  })
+    storage = jasmine.createSpyObj('storage', ['get', 'set', 'clear']);
+    chrome.storage = {local: storage};
+  });
 
   it('saves a new process in local storage', function() {
     ProcessStore.save('12345678');
-    expect(setCalled).toBe(true);
+    expect(storage.set).toHaveBeenCalledWith({'12345678': {}});
   });
 
   it('updates the status of a process in local storage', function() {
     ProcessStore.updateViewStatus('12345678');
-    expect(setCalled).toBe(true);
+    expect(storage.set).toHaveBeenCalledWith({'12345678': {isViewed: true}});
   });
 
   it('retrieves not viewed process in local storage', function() {
     ProcessStore.getNextProcess();
-    expect(getCalled).toBe(true);
+    expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
   });
 
   it('clears storage', function() {
-    ProcessStore.clear();
-    expect(clearCalled).toBe(true);
+    var callback = function() {};
+    ProcessStore.clear(callback);
+    expect(storage.clear).toHaveBeenCalledWith(callback);
   });
 });
