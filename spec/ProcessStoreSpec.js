@@ -26,4 +26,13 @@ describe('ProcessStore', function() {
     ProcessStore.clear(callback);
     expect(storage.clear).toHaveBeenCalledWith(callback);
   });
+
+  it('clear process status', function() {
+    ProcessStore.clearAllProcessesStatus();
+    expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
+
+    var callback = storage.get.calls.mostRecent().args[1];
+    callback({'12345678': { isViewed: true }});
+    expect(storage.set).toHaveBeenCalledWith({'12345678': {isViewed: false}});
+  });
 });

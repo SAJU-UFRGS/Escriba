@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var button = document.getElementsByTagName('button');
-  button[0].addEventListener('click', loadProcesses);
+  var button = document.getElementById('register');
+  button.addEventListener('click', loadProcesses);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var button = document.getElementById('clear');
+  button.addEventListener('click', clearAllProcessesStatus);
 });
 
 function loadProcesses() {
@@ -20,4 +25,8 @@ function store(listOfProcesses) {
   listOfProcesses.forEach(function(process) {
     ProcessStore.save(process);
   })
+}
+
+function clearAllProcessesStatus() {
+  ProcessStore.clearAllProcessesStatus();
 }
