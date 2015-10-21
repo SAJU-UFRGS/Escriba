@@ -9,7 +9,8 @@ describe('processesTracker', function() {
     invalidText = { innerText: 'NÚMERO 1234567 INVÁLIDO', baseURI: 'url/num_processo_mask=1234567' };
     iframeDocument.getElementsByClassName = function() { return [{}, invalidText]; }
 
-    ProcessStore = jasmine.createSpyObj('ProcessStore', ['getNextProcess', 'updateViewStatus']);
+    spyOn(ProcessStore, 'getNextProcess');
+    spyOn(ProcessStore, 'updateViewStatus');
   });
 
   it('retrieves the next process from the ProcessStore when on input page', function() {
