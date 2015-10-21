@@ -31,10 +31,17 @@
     <script src="popup.js"></script>
   </head>
   <body>
-    <p>HI!</p>
-    <p><label>Lista de processos: <textarea id="processesInput" type="text"></textarea></label></p>
-    <button id="register" type="submit" on >Registrar</button>
-    <button id="clear" type="submit" on >Reiniciar lista</button>
+    <h1>Lista de processos</h1>
+    <section id="submit-form">
+      <textarea id="processesInput" type="text"></textarea></label></p>
+      <button id="register" type="submit">Enviar</button>
+    </section>
+    <section id="list">
+      <ul id="process">
+      </ul>
+      <button id="restart" type="submit">Reiniciar</button>
+      <button id="clear" type="submit">Nova Lista</button>
+    </section>
   </body>
 </html>
 
