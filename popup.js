@@ -4,8 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  var button = document.getElementById('clear');
+  var button = document.getElementById('restart');
   button.addEventListener('click', clearAllProcessesStatus);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var button = document.getElementById('clear');
+  button.addEventListener('click', removeAllProcesses);
 });
 
 function loadProcesses() {
@@ -29,4 +34,8 @@ function store(listOfProcesses) {
 
 function clearAllProcessesStatus() {
   ProcessStore.clearAllProcessesStatus();
+}
+
+function removeAllProcesses() {
+  ProcessStore.clear();
 }
