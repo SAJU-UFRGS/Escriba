@@ -1,4 +1,4 @@
-describe('processesTracker', function() {
+describe('EscribaHelper', function() {
   var iframeDocument, processInput, processInfo, invalidText;
 
   beforeEach(function(){
@@ -14,8 +14,10 @@ describe('processesTracker', function() {
   });
 
   it('retrieves the next process from the ProcessStore when on input page', function() {
+    var captchaInput = jasmine.createSpyObj('captchaInput', ['focus']);
     iframeDocument.getElementById = function(id) {
       if (id === 'num_processo_mask') return processInput;
+      if (id === 'code') return captchaInput;
     };
 
     EscribaHelper.updateProcessForPage(iframeDocument);
@@ -24,6 +26,7 @@ describe('processesTracker', function() {
     var callback = ProcessStore.getNextProcess.calls.mostRecent().args[0];
     callback('1234567');
     expect(processInput.setAttribute).toHaveBeenCalledWith('value', '1234567');
+    expect(captchaInput.focus).toHaveBeenCalled();
   });
 
   it('updates view status for process when on info page', function() {
