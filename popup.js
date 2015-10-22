@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var clearButton = document.getElementById('new');
   clearButton.addEventListener('click', newList);
 
-  showCorrectTab();
+  updateView();
 });
 
 function loadProcesses() {
@@ -22,27 +22,37 @@ function getValueFromInput() {
   return input.value;
 }
 
+function updateView() {
+  ProcessStore.getAllProcesses(function (processes) {
+    var processesList = Object.keys(processes).map(function (key) {
+      var process = processes[key];
+      process.number = key;
+      return process;
+    });
+    updateList(processesList);
+    showCorrectTab(processesList);
+  });
+}
+
 function store(processesList) {
   ProcessStore.clear();
-  ProcessStore.saveMultiple(processesList, showCorrectTab);
+  ProcessStore.saveMultiple(processesList, updateView);
 }
 
 function clearAllProcessesStatus() {
-  ProcessStore.clearAllProcessesStatus();
+  ProcessStore.clearAllProcessesStatus(updateView);
 }
 
 function newList() {
   showFormTab();
 }
 
-function showCorrectTab() {
-  ProcessStore.getAllProcesses(function (processes) {
-    if (Object.keys(processes).length > 0) {
-      showListTab();
-    } else {
-      showFormTab();
-    }
-  });
+function showCorrectTab(processes) {
+  if (Object.keys(processes).length > 0) {
+    showListTab();
+  } else {
+    showFormTab();
+  }
 }
 
 function showListTab() {
@@ -61,4 +71,13 @@ function showTab(id) {
 
   var tab = document.getElementById(id);
   tab.style.display = '';
+}
+
+function updateList(processes) {
+  var list = document.querySelector('#list ul');
+  var markup = processes.reduce(function (output, process) {
+    var marked = process.isViewed ? " &#10004;" : "";
+    return output + "<li>" + process.number + marked + "</li>";
+  }, '');
+  list.innerHTML = markup;
 }
