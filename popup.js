@@ -1,16 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var button = document.getElementById('register');
-  button.addEventListener('click', loadProcesses);
-});
+  var registerButton = document.getElementById('register');
+  registerButton.addEventListener('click', loadProcesses);
 
-document.addEventListener('DOMContentLoaded', function() {
-  var button = document.getElementById('restart');
-  button.addEventListener('click', clearAllProcessesStatus);
-});
+  var restartButton = document.getElementById('restart');
+  restartButton.addEventListener('click', clearAllProcessesStatus);
 
-document.addEventListener('DOMContentLoaded', function() {
-  var button = document.getElementById('clear');
-  button.addEventListener('click', removeAllProcesses);
+  var clearButton = document.getElementById('clear');
+  clearButton.addEventListener('click', removeAllProcesses);
+
+  showCorrectTab();
 });
 
 function loadProcesses() {
