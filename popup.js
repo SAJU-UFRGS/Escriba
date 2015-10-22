@@ -15,9 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadProcesses() {
   var value = getValueFromInput();
-  var listOfProcesses = parseToListOfProcesses(value);
-  store(listOfProcesses);
-  console.log(listOfProcesses);
+  var processesList = parseToListOfProcesses(value);
+  store(processesList);
 }
 
 function getValueFromInput() {
@@ -25,11 +24,9 @@ function getValueFromInput() {
   return input.value;
 }
 
-function store(listOfProcesses) {
+function store(processesList) {
   ProcessStore.clear();
-  listOfProcesses.forEach(function(process) {
-    ProcessStore.save(process);
-  })
+  ProcessStore.saveMultiple(processesList, showCorrectTab);
 }
 
 function clearAllProcessesStatus() {
@@ -37,5 +34,33 @@ function clearAllProcessesStatus() {
 }
 
 function removeAllProcesses() {
-  ProcessStore.clear();
+  showFormTab();
+}
+
+function showCorrectTab() {
+  ProcessStore.getAllProcesses(function (processes) {
+    if (Object.keys(processes).length > 0) {
+      showListTab();
+    } else {
+      showFormTab();
+    }
+  });
+}
+
+function showListTab() {
+  showTab('list');
+}
+
+function showFormTab() {
+  showTab('submit-form');
+}
+
+function showTab(id) {
+  var sections = document.querySelectorAll('section');
+  Array.prototype.forEach.call(sections, function(section){
+    section.style.display = 'none';
+  });
+
+  var tab = document.getElementById(id);
+  tab.style.display = '';
 }
