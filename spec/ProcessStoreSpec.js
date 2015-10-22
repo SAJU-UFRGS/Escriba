@@ -6,6 +6,14 @@ describe('ProcessStore', function() {
     chrome.storage = {local: storage};
   });
 
+  describe('saveMultiple', function () {
+    it('', function () {
+      var callback = function() {};
+      ProcessStore.saveMultiple(['123', '456'], callback);
+      expect(storage.set).toHaveBeenCalledWith({'123': {}, '456': {}}, callback);
+    });
+  });
+
   it('saves a new process in local storage', function() {
     ProcessStore.save('12345678');
     expect(storage.set).toHaveBeenCalledWith({'12345678': {}});

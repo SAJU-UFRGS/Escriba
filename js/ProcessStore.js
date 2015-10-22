@@ -1,4 +1,11 @@
 var ProcessStore = {
+  saveMultiple: function(processNumbers, callback) {
+    var processesToBeSaved = {};
+    processNumbers.forEach(function (number) {
+      processesToBeSaved[number] = {};
+    });
+    chrome.storage.local.set(processesToBeSaved, callback);
+  },
   save: function(processNumber, optionals) {
     var processToBeSaved = {};
     processToBeSaved[processNumber] = optionals || {};
