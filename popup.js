@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var restartButton = document.getElementById('restart');
   restartButton.addEventListener('click', clearAllProcessesStatus);
 
-  var clearButton = document.getElementById('clear');
-  clearButton.addEventListener('click', removeAllProcesses);
+  var clearButton = document.getElementById('new');
+  clearButton.addEventListener('click', newList);
 
   showCorrectTab();
 });
@@ -31,7 +31,7 @@ function clearAllProcessesStatus() {
   ProcessStore.clearAllProcessesStatus();
 }
 
-function removeAllProcesses() {
+function newList() {
   showFormTab();
 }
 
