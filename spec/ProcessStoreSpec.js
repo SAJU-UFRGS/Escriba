@@ -40,7 +40,7 @@ describe('ProcessStore', function() {
     expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
 
     var callback = storage.get.calls.mostRecent().args[1];
-    callback({'12345678': { isViewed: true }});
-    expect(storage.set).toHaveBeenCalledWith({'12345678': {isViewed: false}});
+    callback({'123': { isViewed: true }, '456': { isViewed: true }});
+    expect(storage.set).toHaveBeenCalledWith({'123': { isViewed: false }, '456': { isViewed: false }}, undefined);
   });
 });

@@ -1,8 +1,8 @@
 var ProcessStore = {
-  saveMultiple: function(processNumbers, callback) {
+  saveMultiple: function(processNumbers, callback, properties) {
     var processesToBeSaved = {};
     processNumbers.forEach(function (number) {
-      processesToBeSaved[number] = {};
+      processesToBeSaved[number] = properties || {};
     });
     chrome.storage.local.set(processesToBeSaved, callback);
   },
@@ -30,11 +30,9 @@ var ProcessStore = {
   clear: function(callback) {
     chrome.storage.local.clear(callback);
   },
-  clearAllProcessesStatus: function() {
+  clearAllProcessesStatus: function(callback) {
     ProcessStore.getAllProcesses(function(processes) {
-      Object.keys(processes).forEach(function(process) {
-        ProcessStore.save(process, { isViewed: false });
-      });
+      ProcessStore.saveMultiple(Object.keys(processes), callback, { isViewed: false });
     });
   }
 }
