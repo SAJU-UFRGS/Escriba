@@ -23,7 +23,8 @@ module.exports = function(config) {
     // list of files to exclude
     exclude: [
       '**/*.swp',
-      'js/processesTracker.js'
+      'js/pageCrawler.js',
+      'js/setup.js'
     ],
 
 

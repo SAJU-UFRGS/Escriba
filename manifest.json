@@ -22,7 +22,7 @@
       "js": [
         "js/EscribaHelper.js",
         "js/ProcessStore.js",
-        "js/processesTracker.js"
+        "js/pageCrawler.js"
       ]
     }
   ],
