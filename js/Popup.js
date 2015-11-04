@@ -53,6 +53,13 @@ var Popup = {
       return output + "<li>" + process.number + marked + "</li>";
     }, '');
     list.innerHTML = markup;
+
+    Popup.updateCount(processes);
+  },
+
+  updateCount: function(processes) {
+    var count = document.getElementById('processCount');
+    count.innerHTML = count.innerHTML + processes.length;
   },
 
   getValueFromInput: function() {
