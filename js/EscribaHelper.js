@@ -10,7 +10,7 @@ var EscribaHelper = {
   _findNumberFromURIAndUpdateProcess: function(uri) {
     processNumber = this.processPattern.exec(uri)[1];
     if (processNumber) {
-      ProcessStore.updateViewStatus(processNumber);
+      ProcessStore.markAsViewed(processNumber);
     }
   },
 

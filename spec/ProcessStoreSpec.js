@@ -7,40 +7,59 @@ describe('ProcessStore', function() {
   });
 
   describe('saveMultiple', function () {
-    it('', function () {
+    it('saves multiple processes with callback and empty properties', function () {
       var callback = function() {};
       ProcessStore.saveMultiple(['123', '456'], callback);
       expect(storage.set).toHaveBeenCalledWith({'123': {}, '456': {}}, callback);
     });
+
+    it('saves multiple processes with callback and properties', function () {
+      var callback = function() {};
+      ProcessStore.saveMultiple(['123', '456'], callback, {a: 1});
+      expect(storage.set).toHaveBeenCalledWith({'123': {a: 1}, '456': {a: 1}}, callback);
+    });
+
+    it('saves multiple processes with properties and without callback', function () {
+      ProcessStore.saveMultiple(['123', '456'], null, {a: 1});
+      expect(storage.set).toHaveBeenCalledWith({'123': {a: 1}, '456': {a: 1}}, null);
+    });
+
+    it('saves multiple processes without callback and properties', function () {
+      ProcessStore.saveMultiple(['123', '456']);
+      expect(storage.set).toHaveBeenCalledWith({'123': {}, '456': {}}, undefined);
+    });
   });
 
-  it('saves a new process in local storage', function() {
-    ProcessStore.save('12345678');
-    expect(storage.set).toHaveBeenCalledWith({'12345678': {}});
+  describe('markAsViewed', function () {
+    it('updates the status of a process in local storage', function() {
+      ProcessStore.markAsViewed('12345678');
+      expect(storage.set).toHaveBeenCalledWith({'12345678': {isViewed: true}}, null);
+    });
   });
 
-  it('updates the status of a process in local storage', function() {
-    ProcessStore.updateViewStatus('12345678');
-    expect(storage.set).toHaveBeenCalledWith({'12345678': {isViewed: true}});
+  describe('getNextProcess', function () {
+    it('retrieves process in local storage', function() {
+      ProcessStore.getNextProcess();
+      expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
+    });
   });
 
-  it('retrieves not viewed process in local storage', function() {
-    ProcessStore.getNextProcess();
-    expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
+  describe('clear', function () {
+    it('clears storage', function() {
+      var callback = function() {};
+      ProcessStore.clear(callback);
+      expect(storage.clear).toHaveBeenCalledWith(callback);
+    });
   });
 
-  it('clears storage', function() {
-    var callback = function() {};
-    ProcessStore.clear(callback);
-    expect(storage.clear).toHaveBeenCalledWith(callback);
-  });
+  describe('clearAllProcessesStatus', function () {
+    it('clear process status', function() {
+      ProcessStore.clearAllProcessesStatus();
+      expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
 
-  it('clear process status', function() {
-    ProcessStore.clearAllProcessesStatus();
-    expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
-
-    var callback = storage.get.calls.mostRecent().args[1];
-    callback({'123': { isViewed: true }, '456': { isViewed: true }});
-    expect(storage.set).toHaveBeenCalledWith({'123': { isViewed: false }, '456': { isViewed: false }}, undefined);
+      var callback = storage.get.calls.mostRecent().args[1];
+      callback({'123': { isViewed: true }, '456': { isViewed: true }});
+      expect(storage.set).toHaveBeenCalledWith({'123': { isViewed: false }, '456': { isViewed: false }}, undefined);
+    });
   });
 });
