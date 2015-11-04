@@ -1,5 +1,5 @@
 var Parser = {
-  processNumbersPattern: /(?:No|Numero) do processo[:\n\s]+?([\d\.\\\\/-]+)/gi,
+  processNumbersPattern: /n.{1,7} do processo[:\n\s]+?([\d\.\\\\/-]+)/gi,
   specialCharsPattern: /[^\d]/g,
   parseToListOfProcesses: function (value) {
     if (!value) return null;
