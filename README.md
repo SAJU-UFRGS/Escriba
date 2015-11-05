@@ -3,8 +3,8 @@ Essa extensão foi desenvolvida com o intuito de facilitar a visualização de p
 
 Esse produto foi criado para ajudar o G10 do SAJU-UFRGS com o acompanhamento de processos de jovens em conflito com a lei.
 
-Link da extensão (versão 0.1.0):
-https://chrome.google.com/webstore/detail/saju-tjrs-extension/ilignoppjkbabadfnombhbnjhjjgmcio?utm_source=gmail
+Link da extensão (versão 0.1.1):
+https://chrome.google.com/webstore/detail/saju-tjrs-extension/ilignoppjkbabadfnombhbnjhjjgmcio
 
 ## Para rodar
 ### Instalar dependências
