@@ -6,13 +6,8 @@ var ProcessStore = {
     });
     chrome.storage.local.set(processesToBeSaved, callback);
   },
-  save: function(processNumber, optionals) {
-    var processToBeSaved = {};
-    processToBeSaved[processNumber] = optionals || {};
-    chrome.storage.local.set(processToBeSaved);
-  },
-  updateViewStatus: function(processNumber) {
-    ProcessStore.save(processNumber, { isViewed: true });
+  markAsViewed: function(processNumber) {
+    ProcessStore.saveMultiple([processNumber], null, { isViewed: true });
   },
   getNextProcess: function(callback) {
     chrome.storage.local.get(null, function(processes) {

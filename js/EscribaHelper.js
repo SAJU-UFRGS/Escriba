@@ -10,7 +10,7 @@ var EscribaHelper = {
   _findNumberFromURIAndUpdateProcess: function(uri) {
     processNumber = this.processPattern.exec(uri)[1];
     if (processNumber) {
-      ProcessStore.updateViewStatus(processNumber);
+      ProcessStore.markAsViewed(processNumber);
     }
   },
 
@@ -18,7 +18,7 @@ var EscribaHelper = {
     return pageText && pageText.innerText.indexOf("INVÁLIDO") > -1;
   },
 
-  _setValueAndFocusOnCaptcha(input, iframeDocument) {
+  _setValueAndFocusOnCaptcha: function(input, iframeDocument) {
       ProcessStore.getNextProcess(function(nextProcess) {
         if (nextProcess) {
           input.setAttribute('value', nextProcess);

@@ -8,6 +8,6 @@
   },
   "scripts": {
     "build": "zip escriba.zip README.md icon16.png js/* manifest.json popup.html popup.js",
-    "test": "./node_modules/karma/bin/karma start"
+    "test": "karma start"
   }
 }

@@ -10,7 +10,7 @@ describe('EscribaHelper', function() {
     iframeDocument.getElementsByClassName = function() { return [{}, invalidText]; }
 
     spyOn(ProcessStore, 'getNextProcess');
-    spyOn(ProcessStore, 'updateViewStatus');
+    spyOn(ProcessStore, 'markAsViewed');
   });
 
   it('retrieves the next process from the ProcessStore when on input page', function() {
@@ -38,12 +38,12 @@ describe('EscribaHelper', function() {
 
     EscribaHelper.updateProcessForPage(iframeDocument);
 
-    expect(ProcessStore.updateViewStatus).toHaveBeenCalledWith('1234567');
+    expect(ProcessStore.markAsViewed).toHaveBeenCalledWith('1234567');
   });
 
   it('updates view status for process when on error page', function() {
     EscribaHelper.updateProcessForPage(iframeDocument);
 
-    expect(ProcessStore.updateViewStatus).toHaveBeenCalledWith('1234567');
+    expect(ProcessStore.markAsViewed).toHaveBeenCalledWith('1234567');
   });
 });
