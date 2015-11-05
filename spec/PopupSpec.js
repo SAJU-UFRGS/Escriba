@@ -1,21 +1,20 @@
 describe('Popup', function() {
-  var list, form, countElement, input;
-
-  list = document.createElement('ul');
-  form = document.createElement('form');
-  countElement = document.createElement('h4');
-  input = document.createElement('textarea');
+  var fakeDOM;
+  
+  fakeDOM = {
+    'list': document.createElement('ul'),
+    'submit-form': document.createElement('form'),
+    'processCount': document.createElement('h4'),
+    'processesInput': document.createElement('textarea')
+  };
 
   beforeEach(function() {
-    countElement.innerHTML = '';
+    fakeDOM.processCount.innerHTML = '';
 
     spyOn(ProcessStore, 'markAllNotViewed');
 
     spyOn(document, 'getElementById').and.callFake(function(id) {
-      if (id === 'list') return list;
-      if (id === 'submit-form') return form;
-      if (id === 'processCount') return countElement;
-      if (id === 'processesInput') return input;
+      return fakeDOM[id];
     });
   });
 
@@ -23,19 +22,19 @@ describe('Popup', function() {
     it('appends total number of processes', function () {
       Popup.updateCount(['132443', '3213214', '4231232']);
 
-      expect(countElement.innerHTML).toEqual('3');
+      expect(fakeDOM.processCount.innerHTML).toEqual('3');
     });
 
     it('does not show count when no processes', function () {
       Popup.updateCount([]);
 
-      expect(countElement.innerHTML).toEqual('0');
+      expect(fakeDOM.processCount.innerHTML).toEqual('0');
     });
   });
 
   describe('getValueFromInput', function () {
     it('retrieves input', function () {
-      input.value = 'Hello';
+      fakeDOM.processesInput.value = 'Hello';
       expect(Popup.getValueFromInput()).toEqual('Hello');
     });
   });
@@ -44,15 +43,15 @@ describe('Popup', function() {
     it('hides list and shows form', function () {
       Popup.updateTabs({show: 'submit-form', hide: 'list'});
 
-      expect(list.style.display).toEqual('none');
-      expect(form.style.display).toEqual('');
+      expect(fakeDOM.list.style.display).toEqual('none');
+      expect(fakeDOM['submit-form'].style.display).toEqual('');
     });
 
     it('hides form and shows list', function () {
       Popup.updateTabs({show: 'list', hide: 'submit-form'});
 
-      expect(list.style.display).toEqual('');
-      expect(form.style.display).toEqual('none');
+      expect(fakeDOM.list.style.display).toEqual('');
+      expect(fakeDOM['submit-form'].style.display).toEqual('none');
     });
   });
 
@@ -60,30 +59,30 @@ describe('Popup', function() {
     it('hides list and shows form', function () {
       Popup.newList();
 
-      expect(list.style.display).toEqual('none');
-      expect(form.style.display).toEqual('');
+      expect(fakeDOM.list.style.display).toEqual('none');
+      expect(fakeDOM['submit-form'].style.display).toEqual('');
     });
   });
 
   describe('renderList', function () {
     it('lists all processes', function () {
-      spyOn(document, 'querySelector').and.returnValue(list);
+      spyOn(document, 'querySelector').and.returnValue(fakeDOM.list);
       Popup.renderList([
         { number: '123' },
         { number: '567' }
       ]);
 
-      expect(list.innerHTML).toEqual('<li>123</li><li>567</li>');
+      expect(fakeDOM.list.innerHTML).toEqual('<li>123</li><li>567</li>');
     });
 
     it('lists marks viewed processes', function () {
-      spyOn(document, 'querySelector').and.returnValue(list);
+      spyOn(document, 'querySelector').and.returnValue(fakeDOM.list);
       Popup.renderList([
         { number: '123', isViewed: true },
         { number: '567' }
       ]);
 
-      expect(list.innerHTML).toEqual('<li>123 ✔</li><li>567</li>');
+      expect(fakeDOM.list.innerHTML).toEqual('<li>123 ✔</li><li>567</li>');
     });
   });
 
