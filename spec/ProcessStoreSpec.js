@@ -38,9 +38,29 @@ describe('ProcessStore', function() {
   });
 
   describe('getNextProcess', function () {
+    beforeEach(function () {
+      storage.get.and.callFake(function (arg, filter) {
+        filter({
+          '123': {isViewed: true},
+          '456': {isViewed: false},
+          '789' : {}
+        });
+      });
+    });
+
     it('retrieves process in local storage', function() {
-      ProcessStore.getNextProcess();
+      ProcessStore.getNextProcess(function () {});
       expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
+    });
+
+    it('returns a processes marked as not viewed in local storage', function() {
+      var result;
+
+      ProcessStore.getNextProcess(function () {
+        result = arguments[0];
+      });
+
+      expect(result).toEqual('456')
     });
   });
 
