@@ -66,15 +66,14 @@ describe('ProcessStore', function() {
 
   describe('clear', function () {
     it('clears storage', function() {
-      var callback = function() {};
-      ProcessStore.clear(callback);
-      expect(storage.clear).toHaveBeenCalledWith(callback);
+      ProcessStore.clear('callback');
+      expect(storage.clear).toHaveBeenCalledWith('callback');
     });
   });
 
-  describe('clearAllProcessesStatus', function () {
+  describe('markAllNotViewed', function () {
     it('clear process status', function() {
-      ProcessStore.clearAllProcessesStatus();
+      ProcessStore.markAllNotViewed();
       expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
 
       var callback = storage.get.calls.mostRecent().args[1];

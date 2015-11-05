@@ -25,7 +25,7 @@ var ProcessStore = {
   clear: function(callback) {
     chrome.storage.local.clear(callback);
   },
-  clearAllProcessesStatus: function(callback) {
+  markAllNotViewed: function(callback) {
     ProcessStore.getAllProcesses(function(processes) {
       ProcessStore.saveMultiple(Object.keys(processes), callback, { isViewed: false });
     });

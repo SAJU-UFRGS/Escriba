@@ -7,7 +7,7 @@ describe('Popup', function() {
   beforeEach(function() {
     countElement.innerHTML = '';
 
-    spyOn(ProcessStore, 'clearAllProcessesStatus');
+    spyOn(ProcessStore, 'markAllNotViewed');
 
     spyOn(document, 'getElementById').and.callFake(function(id) {
       if (id === 'list') return list;
@@ -86,10 +86,10 @@ describe('Popup', function() {
   });
 
   describe('clearAllProcessesStatus', function () {
-    it('calls ProcessStore clear', function () {
+    it('calls ProcessStore markAllNotViewed', function () {
       Popup.clearAllProcessesStatus();
 
-      expect(ProcessStore.clearAllProcessesStatus).toHaveBeenCalled();
+      expect(ProcessStore.markAllNotViewed).toHaveBeenCalled();
     });
   });
 

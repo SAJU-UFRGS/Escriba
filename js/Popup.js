@@ -23,7 +23,7 @@ var Popup = {
   },
 
   clearAllProcessesStatus: function () {
-    ProcessStore.clearAllProcessesStatus(Popup.updateView);
+    ProcessStore.markAllNotViewed(Popup.updateView);
   },
 
   newList: function () {
