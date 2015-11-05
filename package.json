@@ -1,6 +1,7 @@
 {
   "name": "escriba",
   "devDependencies": {
+    "eslint": "^1.8.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.11",
     "karma-chrome-launcher": "^0.2.1",
@@ -8,6 +9,7 @@
   },
   "scripts": {
     "build": "zip escriba.zip README.md icon16.png js/* manifest.json popup.html popup.js",
-    "test": "karma start"
+    "test": "karma start",
+    "lint": "eslint spec/*.js js/*.js; exit 0"
   }
 }

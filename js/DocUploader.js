@@ -1,7 +1,9 @@
 var DocUploader = {
   loadProcesses: function () {
-    var value = Popup.getValueFromInput();
-    var processesList = Parser.parseToListOfProcesses(value);
+    var value, processesList;
+    value = Popup.getValueFromInput();
+    processesList = Parser.parseToListOfProcesses(value);
+
     DocUploader.store(processesList);
   },
 
@@ -9,4 +11,4 @@ var DocUploader = {
     ProcessStore.clear();
     ProcessStore.saveMultiple(processesList, Popup.updateView);
   }
-}
+};

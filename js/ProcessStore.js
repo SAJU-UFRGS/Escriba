@@ -30,4 +30,4 @@ var ProcessStore = {
       ProcessStore.saveMultiple(Object.keys(processes), callback, { isViewed: false });
     });
   }
-}
+};

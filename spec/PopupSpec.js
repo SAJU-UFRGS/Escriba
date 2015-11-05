@@ -1,8 +1,10 @@
 describe('Popup', function() {
-  var list = document.createElement('ul');
-  var form = document.createElement('form');
-  var countElement = document.createElement('h4');
-  var input = document.createElement('textarea');
+  var list, form, countElement, input;
+
+  list = document.createElement('ul');
+  form = document.createElement('form');
+  countElement = document.createElement('h4');
+  input = document.createElement('textarea');
 
   beforeEach(function() {
     countElement.innerHTML = '';
@@ -33,7 +35,7 @@ describe('Popup', function() {
 
   describe('getValueFromInput', function () {
     it('retrieves input', function () {
-      input.value = "Hello";
+      input.value = 'Hello';
       expect(Popup.getValueFromInput()).toEqual('Hello');
     });
   });

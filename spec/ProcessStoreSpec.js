@@ -60,7 +60,7 @@ describe('ProcessStore', function() {
         result = arguments[0];
       });
 
-      expect(result).toEqual('456')
+      expect(result).toEqual('456');
     });
   });
 

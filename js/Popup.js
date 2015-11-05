@@ -1,12 +1,14 @@
 var Popup = {
   setUp: function () {
-    var registerButton = document.getElementById('register');
+    var registerButton, restartButton, clearButton;
+    
+    registerButton = document.getElementById('register');
     registerButton.addEventListener('click', DocUploader.loadProcesses);
 
-    var restartButton = document.getElementById('restart');
+    restartButton = document.getElementById('restart');
     restartButton.addEventListener('click', Popup.clearAllProcessesStatus);
 
-    var clearButton = document.getElementById('new');
+    clearButton = document.getElementById('new');
     clearButton.addEventListener('click', Popup.newList);
   },
 
@@ -39,18 +41,22 @@ var Popup = {
   },
 
   updateTabs: function (actions) {
-    var tabToHide = document.getElementById(actions.hide);
+    var tabToHide, tabToShow;
+
+    tabToHide = document.getElementById(actions.hide);
     tabToHide.style.display = 'none';
 
-    var tabToShow = document.getElementById(actions.show);
+    tabToShow = document.getElementById(actions.show);
     tabToShow.style.display = '';
   },
 
   renderList: function (processes) {
-    var list = document.querySelector('#list ul');
-    var markup = processes.reduce(function (output, process) {
-      var marked = process.isViewed ? " &#10004;" : "";
-      return output + "<li>" + process.number + marked + "</li>";
+    var list, markup;
+
+    list = document.querySelector('#list ul');
+    markup = processes.reduce(function (output, process) {
+      var marked = process.isViewed ? ' &#10004;' : '';
+      return output + '<li>' + process.number + marked + '</li>';
     }, '');
     list.innerHTML = markup;
 

@@ -1,13 +1,9 @@
-var processInput,
-    processInfo,
-    processError,
-    processURI,
-    processNumber;
-
 var EscribaHelper = {
   processPattern: /num_processo_mask=(\d+)/,
 
   _findNumberFromURIAndUpdateProcess: function(uri) {
+    var processNumber;
+
     processNumber = this.processPattern.exec(uri)[1];
     if (processNumber) {
       ProcessStore.markAsViewed(processNumber);
@@ -15,19 +11,21 @@ var EscribaHelper = {
   },
 
   _isErrorPage: function(pageText) {
-    return pageText && pageText.innerText.indexOf("INVÁLIDO") > -1;
+    return pageText && pageText.innerText.indexOf('INVÁLIDO') > -1;
   },
 
   _setValueAndFocusOnCaptcha: function(input, iframeDocument) {
-      ProcessStore.getNextProcess(function(nextProcess) {
-        if (nextProcess) {
-          input.setAttribute('value', nextProcess);
-          iframeDocument.getElementById('code').focus();
-        }
-      });
+    ProcessStore.getNextProcess(function(nextProcess) {
+      if (nextProcess) {
+        input.setAttribute('value', nextProcess);
+        iframeDocument.getElementById('code').focus();
+      }
+    });
   },
 
   updateProcessForPage: function(iframeDocument) {
+    var processInput, processError, processInfo, processURI;
+
     processInput = iframeDocument.getElementById('num_processo_mask');
     processInfo = iframeDocument.getElementById('conteudo');
     processError = iframeDocument.getElementsByClassName('fonte_grande')[1];
@@ -42,4 +40,4 @@ var EscribaHelper = {
       this._findNumberFromURIAndUpdateProcess(processURI);
     }
   }
-}
+};
