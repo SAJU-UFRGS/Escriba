@@ -15,7 +15,7 @@ describe('EscribaHelper', function() {
 
   it('retrieves the next process from the ProcessStore when on input page', function() {
     var captchaInput, callback;
-    
+
     captchaInput = jasmine.createSpyObj('captchaInput', ['focus']);
     iframeDocument.getElementById = function(id) {
       if (id === 'num_processo_mask') return processInput;
@@ -31,16 +31,30 @@ describe('EscribaHelper', function() {
     expect(captchaInput.focus).toHaveBeenCalled();
   });
 
-  it('updates view status for process when on info page', function() {
-    iframeDocument.getElementById = function(id) {
-      if (id === 'conteudo') return processInfo;
-    };
-    var tableContent = [{firstChild: {baseURI: 'url/num_processo_mask=1234567'}}];
-    processInfo.getElementsByTagName = function() { return tableContent; };
+  describe('info page', function() {
+    beforeEach(function() {
+      iframeDocument.getElementById = function(id) {
+        if (id === 'conteudo') return processInfo;
+      };
+      var tableContent = [{firstChild: {baseURI: 'url/num_processo_mask=1234567'}}];
+      processInfo.getElementsByTagName = function() { return tableContent; };
+      var updatesTable = { rows: [{ querySelector: function() {
+        return { innerText: 'data'};
+      }}]};
+      processInfo.querySelector = function() { return updatesTable; };
 
-    EscribaHelper.updateProcessForPage(iframeDocument);
+      spyOn(UpdateHandler, 'isNew');
 
-    expect(ProcessStore.markAsViewed).toHaveBeenCalledWith('1234567');
+      EscribaHelper.updateProcessForPage(iframeDocument);
+    });
+
+    it('updates view status for process when on info page', function() {
+      expect(ProcessStore.markAsViewed).toHaveBeenCalledWith('1234567');
+    });
+
+    it('retrieves last updates when on info page', function() {
+      expect(UpdateHandler.isNew).toHaveBeenCalledWith('data');
+    });
   });
 
   it('updates view status for process when on error page', function() {

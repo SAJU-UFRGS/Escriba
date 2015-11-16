@@ -23,8 +23,21 @@ var EscribaHelper = {
     });
   },
 
+  _retrieveLastUpdates: function(table) {
+    var updates = Array.prototype.map.call(table.rows, function(row) {
+      return {
+        date: row.querySelector('td:nth-of-type(2)').innerText.trim(),
+        update: row.querySelector('td:nth-of-type(3)').innerText.trim()
+      }
+    });
+    var newUpdates = updates.filter(function(update) {
+      return UpdateHandler.isNew(update.date);
+    });
+    console.log(newUpdates);
+  },
+
   updateProcessForPage: function(iframeDocument) {
-    var processInput, processError, processInfo, processURI;
+    var processInput, processError, processInfo, processURI, updatesTable;
 
     processInput = iframeDocument.getElementById('num_processo_mask');
     processInfo = iframeDocument.getElementById('conteudo');
@@ -35,6 +48,8 @@ var EscribaHelper = {
     } else if (processInfo) {
       processURI = processInfo.getElementsByTagName('table')[0].firstChild.baseURI;
       this._findNumberFromURIAndUpdateProcess(processURI);
+      updatesTable = processInfo.querySelector('table:last-of-type');
+      this._retrieveLastUpdates(updatesTable);
     } else if (this._isErrorPage(processError)) {
       processURI = processError.baseURI;
       this._findNumberFromURIAndUpdateProcess(processURI);
