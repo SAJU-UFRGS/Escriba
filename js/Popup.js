@@ -1,7 +1,7 @@
 var Popup = {
   setUp: function () {
     var registerButton, restartButton, clearButton;
-    
+
     registerButton = document.getElementById('register');
     registerButton.addEventListener('click', DocUploader.loadProcesses);
 
@@ -65,7 +65,7 @@ var Popup = {
 
   updateCount: function(processes) {
     var count = document.getElementById('processCount');
-    count.innerHTML = count.innerHTML + processes.length;
+    count.innerHTML = "Número total de processos: " + processes.length;
   },
 
   getValueFromInput: function() {

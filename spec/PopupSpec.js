@@ -1,6 +1,6 @@
 describe('Popup', function() {
   var fakeDOM;
-  
+
   fakeDOM = {
     'list': document.createElement('ul'),
     'submit-form': document.createElement('form'),
@@ -22,13 +22,13 @@ describe('Popup', function() {
     it('appends total number of processes', function () {
       Popup.updateCount(['132443', '3213214', '4231232']);
 
-      expect(fakeDOM.processCount.innerHTML).toEqual('3');
+      expect(fakeDOM.processCount.innerHTML).toEqual('Número total de processos: 3');
     });
 
     it('does not show count when no processes', function () {
       Popup.updateCount([]);
 
-      expect(fakeDOM.processCount.innerHTML).toEqual('0');
+      expect(fakeDOM.processCount.innerHTML).toEqual('Número total de processos: 0');
     });
   });
 
