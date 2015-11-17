@@ -33,7 +33,6 @@ var EscribaHelper = {
     var newUpdates = updates.filter(function(update) {
       return UpdateHandler.isNew(update.date);
     });
-    console.log(newUpdates);
   },
 
   updateProcessForPage: function(iframeDocument) {

@@ -5,7 +5,7 @@ var ProcessStore = {
       props = properties ? JSON.parse(JSON.stringify(properties)) : {};
       processesToBeSaved[number] = props || {};
       processesToBeSaved[number].index = index;
-      processesToBeSaved[number].id = number;
+      processesToBeSaved[number].number = number;
     });
     chrome.storage.local.set(processesToBeSaved, callback);
   },

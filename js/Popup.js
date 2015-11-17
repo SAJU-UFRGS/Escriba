@@ -14,13 +14,8 @@ var Popup = {
 
   updateView: function () {
     ProcessStore.getAllProcesses(function (processes) {
-      var processesList = Object.keys(processes).map(function (key) {
-        var process = processes[key];
-        process.number = key;
-        return process;
-      });
-      Popup.renderList(processesList);
-      Popup.showCorrectTab(processesList);
+      Popup.renderList(processes);
+      Popup.showCorrectTab(processes);
     });
   },
 

@@ -9,6 +9,6 @@ var DocUploader = {
 
   store: function (processesList) {
     ProcessStore.clear();
-    ProcessStore.saveMultiple(processesList, Popup.updateView);
+    ProcessStore.create(processesList, Popup.updateView);
   }
 };

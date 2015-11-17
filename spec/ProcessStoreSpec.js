@@ -10,23 +10,23 @@ describe('ProcessStore', function() {
     it('creates multiple processes with callback and empty properties', function () {
       var callback = function() {};
       ProcessStore.create(['123', '456'], callback);
-      expect(storage.set).toHaveBeenCalledWith({'123': {index: 0, id: '123'}, '456': {index: 1, id: '456'}}, callback);
+      expect(storage.set).toHaveBeenCalledWith({'123': {index: 0, number: '123'}, '456': {index: 1, number: '456'}}, callback);
     });
 
     it('creates multiple processes with callback and properties', function () {
       var callback = function() {};
       ProcessStore.create(['123', '456'], callback, {a: 1});
-      expect(storage.set).toHaveBeenCalledWith({'123': {a: 1, index: 0, id: '123'}, '456': {a: 1, index: 1, id: '456'}}, callback);
+      expect(storage.set).toHaveBeenCalledWith({'123': {a: 1, index: 0, number: '123'}, '456': {a: 1, index: 1, number: '456'}}, callback);
     });
 
     it('creates multiple processes with properties and without callback', function () {
       ProcessStore.create(['123', '456'], null, {a: 1});
-      expect(storage.set).toHaveBeenCalledWith({'123': {a: 1, index: 0, id: '123'}, '456': {a: 1, index: 1, id: '456'}}, null);
+      expect(storage.set).toHaveBeenCalledWith({'123': {a: 1, index: 0, number: '123'}, '456': {a: 1, index: 1, number: '456'}}, null);
     });
 
     it('creates multiple processes without callback and properties', function () {
       ProcessStore.create(['123', '456']);
-      expect(storage.set).toHaveBeenCalledWith({'123': {index: 0, id: '123'}, '456': {index: 1, id: '456'}}, undefined);
+      expect(storage.set).toHaveBeenCalledWith({'123': {index: 0, number: '123'}, '456': {index: 1, number: '456'}}, undefined);
     });
   });
 
@@ -77,8 +77,8 @@ describe('ProcessStore', function() {
       expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
 
       var callback = storage.get.calls.mostRecent().args[1];
-      callback({'123': { isViewed: true, id: '123', index: 0 }, '456': { isViewed: true, id: '456', index: 1 }});
-      expect(storage.set).toHaveBeenCalledWith({'123': { id: '123', isViewed: false, index: 0 }, '456': { id: '456', isViewed: false, index: 1 }}, undefined);
+      callback({'123': { isViewed: true, number: '123', index: 0 }, '456': { isViewed: true, number: '456', index: 1 }});
+      expect(storage.set).toHaveBeenCalledWith({'123': { number: '123', isViewed: false, index: 0 }, '456': { number: '456', isViewed: false, index: 1 }}, undefined);
     });
   });
 
@@ -86,10 +86,10 @@ describe('ProcessStore', function() {
     beforeEach(function () {
       storage.get.and.callFake(function (arg, callback) {
         callback({
-          '789' : {index: 3, id:  '789'},
-          '456': {isViewed: false, index: 1, id: '456'},
-          '123': {isViewed: true, index: 0, id: '123'},
-          '0': {isViewed: true, index: 2, id: '0'},
+          '789' : {index: 3, number:  '789'},
+          '456': {isViewed: false, index: 1, number: '456'},
+          '123': {isViewed: true, index: 0, number: '123'},
+          '0': {isViewed: true, index: 2, number: '0'},
         });
       });
     });
@@ -102,10 +102,10 @@ describe('ProcessStore', function() {
       });
 
       expect(result).toEqual([
-        {isViewed: true, index: 0, id: '123'},
-        {isViewed: false, index: 1, id: '456'},
-        {isViewed: true, index: 2, id: '0'},
-        {index: 3, id:  '789'}
+        {isViewed: true, index: 0, number: '123'},
+        {isViewed: false, index: 1, number: '456'},
+        {isViewed: true, index: 2, number: '0'},
+        {index: 3, number:  '789'}
       ]);
     });
   });
