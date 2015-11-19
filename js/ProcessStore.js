@@ -12,9 +12,10 @@ var ProcessStore = {
     chrome.storage.local.set(processesToBeSaved, callback);
   },
   markAsViewed: function(processNumber) {
-    var process = {};
-    process[processNumber] = {isViewed: true};
-    chrome.storage.local.set(process);
+    chrome.storage.local.get(processNumber, function(processesList) {
+      processesList[processNumber].isViewed = true;
+      chrome.storage.local.set(processesList);
+    });
   },
   getNextProcess: function(callback) {
     chrome.storage.local.get(null, function(processes) {
