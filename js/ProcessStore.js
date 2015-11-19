@@ -1,11 +1,13 @@
 var ProcessStore = {
   create: function(processNumbers, callback, properties) {
-    var props, processesToBeSaved = {};
-    processNumbers.forEach(function (number, index) {
+    var props, number, processesToBeSaved = {};
+    processNumbers.forEach(function (process, index) {
+      number = process.number;
       props = properties ? JSON.parse(JSON.stringify(properties)) : {};
       processesToBeSaved[number] = props || {};
       processesToBeSaved[number].index = index;
       processesToBeSaved[number].number = number;
+      processesToBeSaved[number].displayNumber = process.displayNumber;
     });
     chrome.storage.local.set(processesToBeSaved, callback);
   },
