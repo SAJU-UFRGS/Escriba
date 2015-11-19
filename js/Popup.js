@@ -51,7 +51,7 @@ var Popup = {
     list = document.querySelector('#list ul');
     markup = processes.reduce(function (output, process) {
       var marked = process.isViewed ? ' &#10004;' : '';
-      return output + '<li>' + process.number + marked + '</li>';
+      return output + '<li>' + process.displayNumber + marked + '</li>';
     }, '');
     list.innerHTML = markup;
 

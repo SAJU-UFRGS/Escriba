@@ -68,21 +68,21 @@ describe('Popup', function() {
     it('lists all processes', function () {
       spyOn(document, 'querySelector').and.returnValue(fakeDOM.list);
       Popup.renderList([
-        { number: '123' },
-        { number: '567' }
+        { number: '123', displayNumber: '123' },
+        { number: '567', displayNumber: '5-67' }
       ]);
 
-      expect(fakeDOM.list.innerHTML).toEqual('<li>123</li><li>567</li>');
+      expect(fakeDOM.list.innerHTML).toEqual('<li>123</li><li>5-67</li>');
     });
 
     it('lists marks viewed processes', function () {
       spyOn(document, 'querySelector').and.returnValue(fakeDOM.list);
       Popup.renderList([
-        { number: '123', isViewed: true },
-        { number: '567' }
+        { number: '123', displayNumber: '123', isViewed: true },
+        { number: '567', displayNumber: '5-67' }
       ]);
 
-      expect(fakeDOM.list.innerHTML).toEqual('<li>123 ✔</li><li>567</li>');
+      expect(fakeDOM.list.innerHTML).toEqual('<li>123 ✔</li><li>5-67</li>');
     });
   });
 
