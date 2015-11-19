@@ -19,6 +19,11 @@ describe('parseToListOfProcesses', function () {
       .toEqual([{ number: '0011234', displayNumber: '0011234' }]);
   });
 
+  it('should not parse string with something before n', function() {
+    expect(Parser.parseToListOfProcesses('dsdn do processo: 0011234'))
+      .toEqual(null);
+  });
+
   it('should parse one id to a list of one id ignoring case', function() {
     expect(Parser.parseToListOfProcesses('numerO do Processo\n 7001234'))
       .toEqual([{ number: '7001234', displayNumber: '7001234' }]);
