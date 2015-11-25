@@ -1,15 +1,18 @@
 var EscribaHelper = {
   processPattern: /num_processo_mask=(\d+)/,
+  windowDocument: {},
+  iframeDocument: {},
+  sidebarOpen: false,
 
   _isErrorPage: function(pageText) {
     return pageText && pageText.innerText.indexOf('INVÁLIDO') > -1;
   },
 
-  _setValueAndFocusOnCaptcha: function(input, iframeDocument) {
+  _setValueAndFocusOnCaptcha: function(input) {
     ProcessStore.getNextProcess(function(nextProcess) {
       if (nextProcess) {
         input.setAttribute('value', nextProcess);
-        iframeDocument.getElementById('code').focus();
+        EscribaHelper.iframeDocument.getElementById('code').focus();
       }
     });
   },
@@ -39,15 +42,43 @@ var EscribaHelper = {
     });
   },
 
-  updateProcessForPage: function(iframeDocument) {
+  toggleSidebar: function() {
+    if(this.sidebarOpen) {
+      var el = this.windowDocument.getElementById('sidebar');
+      el.parentNode.removeChild(el);
+      this.sidebarOpen = false;
+    }
+    else {
+      var sidebar = this.windowDocument.createElement('div');
+      sidebar.id = "sidebar";
+      sidebar.innerHTML = "\
+        <h1>Hello</h1>\
+        World!\
+        ";
+      sidebar.style.cssText = "\
+        position:fixed;\
+        top:0px;\
+        left:0px;\
+        width:30%;\
+        height:100%;\
+        background:white;\
+        box-shadow:inset 0 0 1em black;\
+        z-index:999999;\
+        ";
+      this.windowDocument.body.appendChild(sidebar);
+      this.sidebarOpen = true;
+    }
+  },
+
+  updateProcessForPage: function() {
     var processInput, processError, processInfo, updatesTable, processURI;
 
-    processInput = iframeDocument.getElementById('num_processo_mask');
-    processInfo = iframeDocument.getElementById('conteudo');
-    processError = iframeDocument.getElementsByClassName('fonte_grande')[1];
+    processInput = this.iframeDocument.getElementById('num_processo_mask');
+    processInfo = this.iframeDocument.getElementById('conteudo');
+    processError = this.iframeDocument.getElementsByClassName('fonte_grande')[1];
 
     if (processInput) {
-      this._setValueAndFocusOnCaptcha(processInput, iframeDocument);
+      this._setValueAndFocusOnCaptcha(processInput);
     } else if (processInfo) {
       processURI = processInfo.getElementsByTagName('table')[0].firstChild.baseURI;
       this._retrieveInfoFromPage({uri: processURI, processInfo: processInfo, shouldCollectUpdates: true});

@@ -5,30 +5,36 @@ describe('EscribaHelper', function() {
     processInput = jasmine.createSpyObj('input', ['setAttribute']);
     processInfo = {};
 
-    iframeDocument = jasmine.createSpyObj('iframe', ['getElementById', 'getElementsByClassName']);
+    iframeDocument = jasmine.createSpyObj('iframe',
+      ['getElementById', 'getElementsByClassName', 'createElement']);
     invalidText = { innerText: 'NÚMERO 1234567 INVÁLIDO', baseURI: 'url/num_processo_mask=1234567' };
     iframeDocument.getElementsByClassName = function() { return [{}, invalidText]; };
+
+    EscribaHelper.iframeDocument = iframeDocument;
 
     spyOn(ProcessStore, 'getNextProcess');
     spyOn(ProcessStore, 'markAsViewed');
   });
 
-  it('retrieves the next process from the ProcessStore when on input page', function() {
-    var captchaInput, callback;
+  describe('input page', function() {
+    it('retrieves the next process from the ProcessStore when on input page', function() {
+      var captchaInput, callback;
 
-    captchaInput = jasmine.createSpyObj('captchaInput', ['focus']);
-    iframeDocument.getElementById = function(id) {
-      if (id === 'num_processo_mask') return processInput;
-      if (id === 'code') return captchaInput;
-    };
+      captchaInput = jasmine.createSpyObj('captchaInput', ['focus']);
+      iframeDocument.getElementById = function(id) {
+        if (id === 'num_processo_mask') return processInput;
+        if (id === 'code') return captchaInput;
+      }
 
-    EscribaHelper.updateProcessForPage(iframeDocument);
-    expect(ProcessStore.getNextProcess).toHaveBeenCalled();
+      EscribaHelper.iframeDocument = iframeDocument;
+      EscribaHelper.updateProcessForPage();
+      expect(ProcessStore.getNextProcess).toHaveBeenCalled();
 
-    callback = ProcessStore.getNextProcess.calls.mostRecent().args[0];
-    callback('1234567');
-    expect(processInput.setAttribute).toHaveBeenCalledWith('value', '1234567');
-    expect(captchaInput.focus).toHaveBeenCalled();
+      callback = ProcessStore.getNextProcess.calls.mostRecent().args[0];
+      callback('1234567');
+      expect(processInput.setAttribute).toHaveBeenCalledWith('value', '1234567');
+      expect(captchaInput.focus).toHaveBeenCalled();
+    });
   });
 
   describe('info page', function() {
@@ -45,7 +51,8 @@ describe('EscribaHelper', function() {
 
       spyOn(UpdateHandler, 'isNew');
 
-      EscribaHelper.updateProcessForPage(iframeDocument);
+      EscribaHelper.iframeDocument = iframeDocument;
+      EscribaHelper.updateProcessForPage();
     });
 
     it('updates view status for process when on info page', function() {
@@ -58,8 +65,35 @@ describe('EscribaHelper', function() {
   });
 
   it('updates view status for process when on error page', function() {
-    EscribaHelper.updateProcessForPage(iframeDocument);
+    EscribaHelper.updateProcessForPage();
 
     expect(ProcessStore.markAsViewed).toHaveBeenCalledWith('1234567');
+  });
+
+  describe('toggles sidebar', function() {
+    var sidebar = {
+      id: 'sidebar', style: {}, parentNode: { removeChild: function() {} }
+    };
+
+    beforeEach(function() {
+      iframeDocument.getElementById = function() { return sidebar };
+      iframeDocument.createElement = function() { return sidebar };
+      iframeDocument.body = { appendChild: function() {} };
+
+      EscribaHelper.windowDocument = iframeDocument;
+    });
+
+    it('opens sidebar', function() {
+      EscribaHelper.toggleSidebar();
+
+      expect(sidebar.innerHTML).toContain('Hello');
+      expect(EscribaHelper.sidebarOpen).toEqual(true);
+    });
+
+    it('closes sidebar', function() {
+      EscribaHelper.toggleSidebar();
+
+      expect(EscribaHelper.sidebarOpen).toEqual(false);
+    });
   });
 });
