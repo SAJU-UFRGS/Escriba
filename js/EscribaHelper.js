@@ -21,12 +21,12 @@ var EscribaHelper = {
     var processInfo = options.processInfo;
     var shouldCollectUpdates = options.shouldCollectUpdates;
 
-    var processNumber = this.processPattern.exec(options.uri)[1];
+    var number = this.processPattern.exec(options.uri)[1];
     var processUpdates = null;
-    if (processNumber && shouldCollectUpdates) {
+    if (number && shouldCollectUpdates) {
       processUpdates = this._retrieveLastUpdates(processInfo);
     }
-    ProcessStore.markAsViewed(processNumber);
+    ProcessStore.updateProcess(number, {isViewed: true});
   },
 
   _retrieveLastUpdates: function(processInfo) {

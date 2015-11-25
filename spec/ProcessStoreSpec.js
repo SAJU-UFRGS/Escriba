@@ -42,16 +42,16 @@ describe('ProcessStore', function() {
     });
   });
 
-  describe('markAsViewed', function () {
+  describe('updateProcess', function () {
     beforeEach(function () {
       storage.get.and.callFake(function (arg, callback) {
         if (arg == '456') callback({'456': {isViewed: false, index: 1, number: '456'}});
       });
     });
 
-    it('updates the status of a process in local storage', function() {
-      ProcessStore.markAsViewed('456');
-      expect(storage.set).toHaveBeenCalledWith({'456': {isViewed: true, index: 1, number: '456'}});
+    it('updates process data in local storage', function() {
+      ProcessStore.updateProcess('456', {a: 1, isViewed: true});
+      expect(storage.set).toHaveBeenCalledWith({'456': {isViewed: true, index: 1, number: '456', a: 1}});
     });
   });
 
