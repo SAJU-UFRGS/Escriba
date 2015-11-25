@@ -1,9 +1,9 @@
 {
-  "name": "SAJU - TJRS - Extension",
-  "version": "0.1.1",
+  "name": "SAJU Secretário",
+  "version": "0.2.0",
   "manifest_version": 2,
   "homepage_url": "https://github.com/SAJU-UFRGS/",
-  "description": "SAJU Secretário",
+  "description": "SAJU - TJRS - Extension",
   "permissions": [
     "storage",
     "activeTab"

@@ -8,7 +8,7 @@
     "karma-jasmine": "^0.3.6"
   },
   "scripts": {
-    "build": "zip escriba.zip README.md icon16.png js/* manifest.json popup.html popup.js",
+    "build": "zip escriba.zip README.md icon16.png js/* manifest.json popup.html",
     "test": "karma start",
     "lint": "eslint spec/*.js js/*.js; exit 0"
   }
