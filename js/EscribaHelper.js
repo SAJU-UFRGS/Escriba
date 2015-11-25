@@ -1,15 +1,6 @@
 var EscribaHelper = {
   processPattern: /num_processo_mask=(\d+)/,
 
-  _findNumberFromURIAndUpdateProcess: function(uri) {
-    var processNumber;
-
-    processNumber = this.processPattern.exec(uri)[1];
-    if (processNumber) {
-      ProcessStore.markAsViewed(processNumber);
-    }
-  },
-
   _isErrorPage: function(pageText) {
     return pageText && pageText.innerText.indexOf('INVÁLIDO') > -1;
   },
@@ -23,20 +14,33 @@ var EscribaHelper = {
     });
   },
 
-  _retrieveLastUpdates: function(table) {
+  _retrieveInfoFromPage: function (options) {
+    var processInfo = options.processInfo;
+    var shouldCollectUpdates = options.shouldCollectUpdates;
+
+    var processNumber = this.processPattern.exec(options.uri)[1];
+    var processUpdates = null;
+    if (processNumber && shouldCollectUpdates) {
+      processUpdates = this._retrieveLastUpdates(processInfo);
+    }
+    ProcessStore.markAsViewed(processNumber);
+  },
+
+  _retrieveLastUpdates: function(processInfo) {
+    var table = processInfo.querySelector('table:last-of-type');
     var updates = Array.prototype.map.call(table.rows, function(row) {
       return {
         date: row.querySelector('td:nth-of-type(2)').innerText.trim(),
         update: row.querySelector('td:nth-of-type(3)').innerText.trim()
       }
     });
-    var newUpdates = updates.filter(function(update) {
+    return newUpdates = updates.filter(function(update) {
       return UpdateHandler.isNew(update.date);
     });
   },
 
   updateProcessForPage: function(iframeDocument) {
-    var processInput, processError, processInfo, processURI, updatesTable;
+    var processInput, processError, processInfo, updatesTable, processURI;
 
     processInput = iframeDocument.getElementById('num_processo_mask');
     processInfo = iframeDocument.getElementById('conteudo');
@@ -46,12 +50,9 @@ var EscribaHelper = {
       this._setValueAndFocusOnCaptcha(processInput, iframeDocument);
     } else if (processInfo) {
       processURI = processInfo.getElementsByTagName('table')[0].firstChild.baseURI;
-      this._findNumberFromURIAndUpdateProcess(processURI);
-      updatesTable = processInfo.querySelector('table:last-of-type');
-      this._retrieveLastUpdates(updatesTable);
+      this._retrieveInfoFromPage({uri: processURI, processInfo: processInfo, shouldCollectUpdates: true});
     } else if (this._isErrorPage(processError)) {
-      processURI = processError.baseURI;
-      this._findNumberFromURIAndUpdateProcess(processURI);
+      this._retrieveInfoFromPage({uri: processError.baseURI, shouldCollectUpdates: false});
     }
   }
 };
