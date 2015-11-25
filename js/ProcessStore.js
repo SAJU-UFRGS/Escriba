@@ -12,8 +12,15 @@ var ProcessStore = {
     chrome.storage.local.set(processesToBeSaved, callback);
   },
   markAsViewed: function(processNumber) {
-    chrome.storage.local.get(processNumber, function(processesList) {
-      processesList[processNumber].isViewed = true;
+    this._updateProcess(processNumber, {isViewed: true});
+  },
+  _updateProcess: function (number, data) {
+    var process;
+    chrome.storage.local.get(number, function(processesList) {
+      process = processesList[number];
+      Object.keys(data).forEach(function (property) {
+        process[property] = data[property];
+      });
       chrome.storage.local.set(processesList);
     });
   },
