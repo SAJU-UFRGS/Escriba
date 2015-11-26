@@ -26,7 +26,7 @@ var EscribaHelper = {
     if (number && shouldCollectUpdates) {
       processUpdates = this._retrieveLastUpdates(processInfo);
     }
-    ProcessStore.updateProcess(number, {isViewed: true});
+    ProcessStore.updateProcess(number, {isViewed: true, updates: processUpdates});
   },
 
   _retrieveLastUpdates: function(processInfo) {

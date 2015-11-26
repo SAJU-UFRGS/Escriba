@@ -44,30 +44,33 @@ describe('EscribaHelper', function() {
       };
       var tableContent = [{firstChild: {baseURI: 'url/num_processo_mask=1234567'}}];
       processInfo.getElementsByTagName = function() { return tableContent; };
-      var updatesTable = { rows: [{ querySelector: function() {
-        return { innerText: 'data'};
+      var updatesTable = { rows: [{ querySelector: function(query) {
+        switch(query) {
+          case 'td:nth-of-type(2)': return {innerText: '10/10/10'};
+          case 'td:nth-of-type(3)': return {innerText: 'New Update'};
+        }
       }}]};
       processInfo.querySelector = function() { return updatesTable; };
 
-      spyOn(UpdateHandler, 'isNew');
+      spyOn(UpdateHandler, 'isNew').and.returnValue(true);
 
       EscribaHelper.iframeDocument = iframeDocument;
       EscribaHelper.updateProcessForPage();
     });
 
     it('updates view status for process when on info page', function() {
-      expect(ProcessStore.updateProcess).toHaveBeenCalledWith('1234567', {isViewed: true});
+      expect(ProcessStore.updateProcess).toHaveBeenCalledWith('1234567', {isViewed: true, updates: [{date: '10/10/10', update: 'New Update'}]});
     });
 
     it('retrieves last updates when on info page', function() {
-      expect(UpdateHandler.isNew).toHaveBeenCalledWith('data');
+      expect(UpdateHandler.isNew).toHaveBeenCalledWith('10/10/10');
     });
   });
 
   it('updates view status for process when on error page', function() {
     EscribaHelper.updateProcessForPage();
 
-    expect(ProcessStore.updateProcess).toHaveBeenCalledWith('1234567', {isViewed: true});
+    expect(ProcessStore.updateProcess).toHaveBeenCalledWith('1234567', {isViewed: true, updates: null});
   });
 
   describe('toggles sidebar', function() {
