@@ -43,6 +43,7 @@ var EscribaHelper = {
   },
 
   toggleSidebar: function(options) {
+    options = options || {}
     if(this.sidebarOpen && !options.open) {
       var el = this.windowDocument.getElementById('sidebar');
       el.parentNode.removeChild(el);

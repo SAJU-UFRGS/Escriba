@@ -89,7 +89,7 @@ describe('EscribaHelper', function() {
     it('opens sidebar', function() {
       EscribaHelper.toggleSidebar();
 
-      expect(sidebar.innerHTML).toContain('Hello');
+      expect(sidebar.innerHTML).toContain('Movimentações Recentes');
       expect(EscribaHelper.sidebarOpen).toEqual(true);
     });
 
