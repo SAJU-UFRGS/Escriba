@@ -95,8 +95,8 @@ describe('ProcessStore', function() {
       expect(storage.get).toHaveBeenCalledWith(null, jasmine.any(Function));
 
       var callback = storage.get.calls.mostRecent().args[1];
-      callback({'123': { isViewed: true, number: '123', index: 0 }, '456': { isViewed: true, number: '456', index: 1 }});
-      expect(storage.set).toHaveBeenCalledWith({'123': { number: '123', isViewed: false, index: 0 }, '456': { number: '456', isViewed: false, index: 1 }}, undefined);
+      callback({'123': {isViewed: true, number: '123', index: 0, updates: null }, '456': { isViewed: true, number: '456', index: 1, updates: [{date: '10/10/10', update: 'Old Update'}] }});
+      expect(storage.set).toHaveBeenCalledWith({'123': { number: '123', isViewed: false, index: 0, updates: null }, '456': { number: '456', isViewed: false, index: 1, updates: null }}, undefined);
     });
   });
 

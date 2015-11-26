@@ -47,6 +47,7 @@ var ProcessStore = {
     chrome.storage.local.get(null, function(processes) {
       Object.keys(processes).forEach(function (processNumber) {
         processes[processNumber].isViewed = false;
+        processes[processNumber].updates = null;
       });
 
       chrome.storage.local.set(processes, callback);
