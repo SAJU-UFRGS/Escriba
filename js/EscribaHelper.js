@@ -42,8 +42,8 @@ var EscribaHelper = {
     });
   },
 
-  toggleSidebar: function() {
-    if(this.sidebarOpen) {
+  toggleSidebar: function(options) {
+    if(this.sidebarOpen && !options.open) {
       var el = this.windowDocument.getElementById('sidebar');
       el.parentNode.removeChild(el);
       this.sidebarOpen = false;
@@ -52,18 +52,7 @@ var EscribaHelper = {
       var sidebar = this.windowDocument.createElement('div');
       sidebar.id = "sidebar";
       sidebar.innerHTML = "\
-        <h1>Hello</h1>\
-        World!\
-        ";
-      sidebar.style.cssText = "\
-        position:fixed;\
-        top:0px;\
-        left:0px;\
-        width:30%;\
-        height:100%;\
-        background:white;\
-        box-shadow:inset 0 0 1em black;\
-        z-index:999999;\
+        <div>Movimentações Recentes</div>\
         ";
       this.windowDocument.body.appendChild(sidebar);
       this.sidebarOpen = true;
