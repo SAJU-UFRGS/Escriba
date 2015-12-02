@@ -73,30 +73,4 @@ describe('EscribaHelper', function() {
     expect(ProcessStore.updateProcess).toHaveBeenCalledWith('1234567', {isViewed: true, updates: null});
   });
 
-  describe('toggles sidebar', function() {
-    var sidebar = {
-      id: 'sidebar', style: {}, parentNode: { removeChild: function() {} }
-    };
-
-    beforeEach(function() {
-      iframeDocument.getElementById = function() { return sidebar };
-      iframeDocument.createElement = function() { return sidebar };
-      iframeDocument.body = { appendChild: function() {} };
-
-      EscribaHelper.windowDocument = iframeDocument;
-    });
-
-    it('opens sidebar', function() {
-      EscribaHelper.toggleSidebar();
-
-      expect(sidebar.innerHTML).toContain('Movimentações Recentes');
-      expect(EscribaHelper.sidebarOpen).toEqual(true);
-    });
-
-    it('closes sidebar', function() {
-      EscribaHelper.toggleSidebar();
-
-      expect(EscribaHelper.sidebarOpen).toEqual(false);
-    });
-  });
 });

@@ -2,8 +2,9 @@ var iframe;
 iframe = document.getElementById('iframeBusca');
 
 iframe.onload = function() {
-  EscribaHelper.windowDocument = document;
+  Sidebar.windowDocument = document;
+  Sidebar.toggleSidebar({open: true});
+
   EscribaHelper.iframeDocument = iframe.contentWindow.document;
-  EscribaHelper.toggleSidebar({open: true});
   EscribaHelper.updateProcessForPage();
 };

@@ -22,6 +22,7 @@
       "css": ["css/index.css"],
       "js": [
         "js/EscribaHelper.js",
+        "js/Sidebar.js",
         "js/ProcessStore.js",
         "js/UpdateHandler.js",
         "js/pageCrawler.js"
