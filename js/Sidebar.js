@@ -2,6 +2,10 @@ var Sidebar = {
   windowDocument: {},
   sidebarOpen: false,
 
+  setUp: function() {
+    this.toggleSidebar({open: true});
+  },
+
   toggleSidebar: function(options) {
     options = options || {}
     if(this.sidebarOpen && !options.open) {
