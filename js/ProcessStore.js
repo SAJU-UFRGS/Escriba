@@ -29,6 +29,15 @@ var ProcessStore = {
       callback(nextProcess);
     });
   },
+  getUpdatedProcesses: function (callback) {
+    ProcessStore.getAllProcesses(function (processes) {
+      var updatedProcesses = processes.filter(function(process) {
+        return (process.updates && process.updates.length > 0);
+      });
+
+      callback(updatedProcesses);
+    });
+  },
   getAllProcesses: function(callback) {
     chrome.storage.local.get(null, function(processes) {
       var sortedProcesses = Object.keys(processes).sort(function (processA, processB) {

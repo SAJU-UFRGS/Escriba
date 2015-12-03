@@ -100,6 +100,33 @@ describe('ProcessStore', function() {
     });
   });
 
+  describe('getUpdatedProcesses', function () {
+    beforeEach(function () {
+      storage.get.and.callFake(function (arg, callback) {
+        callback({
+          '1': {index: 0, number:  '1', updates: null},
+          '2': {isViewed: true, index: 1, number: '2', updates: [{update: 'u1', date: 'd1'}]},
+          '3': {isViewed: false, index: 2, number: '3'},
+          '4': {isViewed: true, index: 3, number: '4', updates: [{update: 'u2', date: 'd2'}]},
+          '5': {isViewed: false, index: 4, number: '5', updates: []}
+        });
+      });
+    });
+
+    it('retrieves all updated processes', function() {
+      var result;
+
+      ProcessStore.getUpdatedProcesses(function (processes) {
+        result = processes;
+      });
+
+      expect(result).toEqual([
+        {isViewed: true, index: 1, number: '2', updates: [{update: 'u1', date: 'd1'}]},
+        {isViewed: true, index: 3, number: '4', updates: [{update: 'u2', date: 'd2'}]}
+      ]);
+    });
+  });
+
   describe('getAllProcesses', function () {
     beforeEach(function () {
       storage.get.and.callFake(function (arg, callback) {
