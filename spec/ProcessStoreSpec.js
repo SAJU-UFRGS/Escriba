@@ -59,9 +59,9 @@ describe('ProcessStore', function() {
     beforeEach(function () {
       storage.get.and.callFake(function (arg, filter) {
         filter({
-          '123': {isViewed: true, index: 0, number: '123'},
           '456': {isViewed: false, index: 1, number: '456'},
-          '789' : {index: 2, number: '789'}
+          '789' : {index: 2, number: '789'},
+          '123': {isViewed: true, index: 0, number: '123'}
         });
       });
     });
@@ -78,7 +78,7 @@ describe('ProcessStore', function() {
         result = elem;
       });
 
-      expect(result).toEqual('456');
+      expect(result).toEqual({isViewed: true, index: 0, number: '123'});
     });
   });
 

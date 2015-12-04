@@ -9,7 +9,7 @@ var EscribaHelper = {
   _setValueAndFocusOnCaptcha: function(input) {
     ProcessStore.getNextProcess(function(nextProcess) {
       if (nextProcess) {
-        input.setAttribute('value', nextProcess);
+        input.setAttribute('value', nextProcess.number);
         EscribaHelper.iframeDocument.getElementById('code').focus();
       }
     });

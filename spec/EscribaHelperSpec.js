@@ -31,7 +31,7 @@ describe('EscribaHelper', function() {
       expect(ProcessStore.getNextProcess).toHaveBeenCalled();
 
       callback = ProcessStore.getNextProcess.calls.mostRecent().args[0];
-      callback('1234567');
+      callback({number: '1234567'});
       expect(processInput.setAttribute).toHaveBeenCalledWith('value', '1234567');
       expect(captchaInput.focus).toHaveBeenCalled();
     });

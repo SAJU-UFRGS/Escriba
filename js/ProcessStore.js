@@ -22,11 +22,8 @@ var ProcessStore = {
     });
   },
   getNextProcess: function(callback) {
-    chrome.storage.local.get(null, function(processes) {
-      var nextProcess = Object.keys(processes).filter(function(process) {
-        return !processes[process].isViewed;
-      })[0];
-      callback(nextProcess);
+    var nextProcess = ProcessStore.getAllProcesses(function (processes) {
+      callback(processes[0]);
     });
   },
   getUpdatedProcesses: function (callback) {
