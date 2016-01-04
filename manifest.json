@@ -21,6 +21,7 @@
       "run_at": "document_end",
       "css": ["css/index.css"],
       "js": [
+        "js/Features.js",
         "js/EscribaHelper.js",
         "js/Sidebar.js",
         "js/ProcessStore.js",
