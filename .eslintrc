@@ -14,7 +14,15 @@ rules:
   one-var:
     - 2
 globals:
-  chrome: true
+  chrome: true,
+  Features: true,
+  Sidebar: true,
+  EscribaHelper: true,
+  DocUploader: true,
+  ProcessStore: true,
+  Parser: true,
+  UpdateHandler: true,
+  Popup: true
 env:
   browser: true
 extends: 'eslint:recommended'

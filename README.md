@@ -17,4 +17,4 @@ Acesse chrome://extensions/ e possibilite "Developer Mode". Escolha "Load unpack
 `npm test`
 
 ### Outros
-`npm lint`
+`npm run-script lint`
