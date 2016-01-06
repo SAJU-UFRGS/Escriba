@@ -5,7 +5,6 @@ var UpdateHandler = {
 
     var oneDayAgo = new Date();
     oneDayAgo.setDate(oneDayAgo.getDate() - 1);
-    var value = updateDate >= oneDayAgo ? "true" : "false";
     return updateDate >= oneDayAgo;
   }
 };
