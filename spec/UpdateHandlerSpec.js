@@ -11,8 +11,8 @@ describe('UpdateHandler', function() {
       '/' + today.getFullYear();
 
     expect(UpdateHandler.isNew(todayAsString)).toBe(true);
-    expect(UpdateHandler.isNew(yesterday)).toBe(true);
-    expect(UpdateHandler.isNew(threeDaysAgo)).toBe(true);
+    expect(UpdateHandler.isNew(yesterday)).toBe(false);
+    expect(UpdateHandler.isNew(threeDaysAgo)).toBe(false);
     expect(UpdateHandler.isNew(fourDaysAgo)).toBe(false);
     expect(UpdateHandler.isNew('22/11/2014')).toBe(false);
   });
