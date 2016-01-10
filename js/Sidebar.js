@@ -1,26 +1,30 @@
 var Sidebar = {
   windowDocument: {},
-  sidebarOpen: false,
 
   setUp: function() {
-    this.toggleSidebar({open: true});
+    var sidebar = this.windowDocument.createElement('div');
+    sidebar.id = "sidebar";
+    sidebar.className = "pure-menu custom-restricted-width";
+    sidebar.innerHTML = "\
+      <span class=\"pure-menu-heading\">Movimentações Recentes</span>\
+      <span class=\"toggle-button\">+</span>\
+      <ul class=\"pure-menu-list\">\
+      <ul>\
+      ";
+    this.windowDocument.body.appendChild(sidebar);
+    sidebar.addEventListener('click', function() {
+      Sidebar.toggleSidebar();
+    });
+
+    var content = this.windowDocument.getElementById('conteudo');
+    content.style.marginLeft = "22%";
   },
 
   toggleSidebar: function(options) {
     options = options || {}
-    if(this.sidebarOpen && !options.open) {
-      var el = this.windowDocument.getElementById('sidebar');
-      el.parentNode.removeChild(el);
-      this.sidebarOpen = false;
-    }
-    else {
-      var sidebar = this.windowDocument.createElement('div');
-      sidebar.id = "sidebar";
-      sidebar.innerHTML = "\
-        <div>Movimentações Recentes</div>\
-        ";
-      this.windowDocument.body.appendChild(sidebar);
-      this.sidebarOpen = true;
-    }
+    var el = this.windowDocument.getElementById('sidebar');
+    el.className += " hidden";
+    var content = this.windowDocument.getElementById('conteudo');
+    content.style.marginLeft = "auto";
   }
 }

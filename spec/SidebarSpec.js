@@ -2,7 +2,8 @@ describe('Sidebar', function() {
   describe('toggles sidebar', function() {
     var iframeDocument;
     var sidebar = {
-      id: 'sidebar', style: {}, parentNode: { removeChild: function() {} }
+      id: 'sidebar', style: {}, parentNode: { removeChild: function() {} },
+      addEventListener: function() {}
     };
 
     beforeEach(function() {
@@ -16,16 +17,15 @@ describe('Sidebar', function() {
     });
 
     it('opens sidebar', function() {
-      Sidebar.toggleSidebar();
+      Sidebar.setUp();
 
       expect(sidebar.innerHTML).toContain('Movimentações Recentes');
-      expect(Sidebar.sidebarOpen).toEqual(true);
     });
 
     it('closes sidebar', function() {
       Sidebar.toggleSidebar();
 
-      expect(Sidebar.sidebarOpen).toEqual(false);
+      expect(sidebar.className).toContain("hidden");
     });
   });
 });

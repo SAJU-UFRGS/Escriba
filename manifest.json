@@ -19,7 +19,10 @@
         "http://www.tjrs.jus.br/busca/?tb=proc"
       ],
       "run_at": "document_end",
-      "css": ["css/index.css"],
+      "css": [
+        "css/index.css",
+        "node_modules/purecss/build/pure-min.css"
+      ],
       "js": [
         "js/Features.js",
         "js/EscribaHelper.js",

@@ -11,5 +11,8 @@
     "build": "zip escriba.zip README.md icon16.png js/* manifest.json popup.html",
     "test": "karma start",
     "lint": "eslint spec/*.js js/*.js; exit 0"
+  },
+  "dependencies": {
+    "purecss": "^0.6.0"
   }
 }

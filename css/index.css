@@ -1,16 +1,16 @@
 #sidebar {
   position: fixed;
-  top: 5%;
+  top: 0%;
   left: -1%;
   width: 20%;
-  height: 90%;
+  height: 100%;
   z-index: 99999;
-  background: #D4D4D4;
-  border-radius: 15px;
+  background: #191818;
   font-size: 16px;
+  color: #FFF;
 }
 
-#sidebar:after {
+.toggle-button {
   content: "+";
   position: fixed;
   top: 6%;
@@ -21,4 +21,11 @@
 #sidebar div {
   margin: 7px;
   margin-left: 17px;
+}
+
+.custom-restricted-width {
+  /* To limit the menu width to the content of the menu: */
+  display: inline-block;
+  /* Or set the width explicitly: */
+  /* width: 10em; */
 }
