@@ -78,7 +78,7 @@ describe('ProcessStore', function() {
         result = elem;
       });
 
-      expect(result).toEqual({isViewed: true, index: 0, number: '123'});
+      expect(result).toEqual({isViewed: false, index: 1, number: '456'});
     });
   });
 

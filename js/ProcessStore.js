@@ -23,7 +23,8 @@ var ProcessStore = {
   },
   getNextProcess: function(callback) {
     var nextProcess = ProcessStore.getAllProcesses(function (processes) {
-      callback(processes[0]);
+      var unseenProcesses = processes.filter(function(process) { return !process.isViewed; });
+      callback(unseenProcesses[0]);
     });
   },
   getUpdatedProcesses: function (callback) {
