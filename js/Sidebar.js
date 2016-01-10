@@ -1,17 +1,21 @@
 var Sidebar = {
   windowDocument: {},
+  sidebarOpen: false,
 
   _createSidebar: function() {
     var sidebar = this.windowDocument.createElement('div');
     sidebar.id = "sidebar";
     sidebar.className = "pure-menu custom-restricted-width";
     sidebar.innerHTML = "\
-      <span class=\"pure-menu-heading\">Movimentações Recentes</span>\
+      <div id=\"sidebar-content\">\
+        <span class=\"pure-menu-heading\">Movimentações Recentes</span>\
+        <ul class=\"pure-menu-list\">\
+        </ul>\
+      </div>\
       <span id=\"toggle-button\" class=\"pure-button\">+</span>\
-      <ul class=\"pure-menu-list\">\
-      <ul>\
       ";
     this.windowDocument.body.appendChild(sidebar);
+    this.sidebarOpen = true;
   },
 
   _setUpToggleButton: function() {
@@ -21,23 +25,36 @@ var Sidebar = {
     });
   },
 
-  _slideContent: function(withSidebar) {
-    var leftMargin = withSidebar ? "22%" : "auto";
+  _slideContent: function() {
+    var leftMargin = this.sidebarOpen ? "22%" : "auto";
     var content = this.windowDocument.getElementById('conteudo');
     content.style.marginLeft = leftMargin;
+  },
+
+  _slideButton: function() {
+    var leftMargin = this.sidebarOpen ? "18%" : "0%";
+    var button = this.windowDocument.getElementById('toggle-button');
+    button.style.left = leftMargin;
   },
 
   setUp: function() {
     this._createSidebar();
     this._setUpToggleButton();
-    this._slideContent(true);
+    this._slideContent();
   },
 
-  toggleSidebar: function(options) {
-    options = options || {}
-    var el = this.windowDocument.getElementById('sidebar');
-    el.className += " hidden";
+  toggleSidebar: function() {
+    var el = this.windowDocument.getElementById('sidebar-content');
 
-    this._slideContent(false);
+    if (this.sidebarOpen) {
+      el.className += " hidden";
+      this.sidebarOpen = false;
+    } else {
+      el.className = el.className.replace(" hidden", "");
+      this.sidebarOpen = true;
+    }
+
+    this._slideContent();
+    this._slideButton();
   }
 }

@@ -1,4 +1,4 @@
-#sidebar {
+#sidebar-content {
   position: fixed;
   top: 0%;
   left: 0%;
@@ -13,11 +13,12 @@
   content: "-";
   position: absolute;
   top: 8%;
-  left: 86%;
+  left: 18%;
+  z-index: 99999;
   font-size: 20px;
 }
 
-#sidebar span {
+#sidebar-content span {
   color: #FFF;
   margin: 7px;
 }
