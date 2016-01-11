@@ -60,10 +60,9 @@ var Sidebar = {
 
   addUpdates: function(processNumber, processUpdates) {
     var el = this.windowDocument.getElementById('updates-list');
-    el.innerHTML += "<li class=\"pure-menu-item\"><ul>" + processNumber;
+    el.innerHTML += "<li class=\"pure-menu-heading\">" + processNumber + "</li>";
     processUpdates.forEach(function(update) {
-      el.innerHTML += "<li>" + update.date + ": " + update.update + "</li>";
+      el.innerHTML += "<li class=\"pure-menu-item\">" + update.date + ": " + update.update + "</li>";
     });
-    el.innerHTML += "</ul></li>";
   }
 }

@@ -57,7 +57,7 @@ describe('Sidebar', function() {
     it('adds update to the list', function() {
       Sidebar.addUpdates('1234', [{ date: '10/10/10', update: 'hi' }]);
 
-      expect(updatesList.innerHTML).toContain('<li>10/10/10: hi</li>');
+      expect(updatesList.innerHTML).toContain('10/10/10: hi');
     });
   });
 });
