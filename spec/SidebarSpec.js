@@ -37,4 +37,27 @@ describe('Sidebar', function() {
       expect(Sidebar.sidebarOpen).toBe(true);
     });
   });
+
+  describe('adds updates', function() {
+    var iframeDocument;
+    var updatesList = {
+      innerHTML: "",
+      appendChild: function(text) {
+        this.innerHTML += text;
+      }
+    };
+
+    beforeEach(function() {
+      iframeDocument = jasmine.createSpyObj('iframe', ['getElementById']);
+      iframeDocument.getElementById = function() { return updatesList };
+
+      Sidebar.windowDocument = iframeDocument;
+    });
+
+    it('adds update to the list', function() {
+      Sidebar.addUpdates('1234', [{ date: '10/10/10', update: 'hi' }]);
+
+      expect(updatesList.innerHTML).toContain('<li>10/10/10: hi</li>');
+    });
+  });
 });

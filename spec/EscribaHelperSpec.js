@@ -53,6 +53,7 @@ describe('EscribaHelper', function() {
       processInfo.querySelector = function() { return updatesTable; };
 
       spyOn(UpdateHandler, 'isNew').and.returnValue(true);
+      spyOn(Sidebar, 'addUpdates');
 
       EscribaHelper.iframeDocument = iframeDocument;
       EscribaHelper.updateProcessForPage();
@@ -64,6 +65,10 @@ describe('EscribaHelper', function() {
 
     it('retrieves last updates when on info page', function() {
       expect(UpdateHandler.isNew).toHaveBeenCalledWith('10/10/10');
+    });
+
+    it('adds updates to sidebar when on info page', function() {
+      expect(Sidebar.addUpdates).toHaveBeenCalledWith('1234567', [{ date: '10/10/10', update: 'New Update' }]);
     });
   });
 

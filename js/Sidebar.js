@@ -9,7 +9,7 @@ var Sidebar = {
     sidebar.innerHTML = "\
       <div id=\"sidebar-content\">\
         <span class=\"pure-menu-heading\">Movimentações Recentes</span>\
-        <ul class=\"pure-menu-list\">\
+        <ul id=\"updates-list\" class=\"pure-menu-list\">\
         </ul>\
       </div>\
       <span id=\"toggle-button\" class=\"pure-button\">+</span>\
@@ -56,5 +56,14 @@ var Sidebar = {
 
     this._slideContent();
     this._slideButton();
+  },
+
+  addUpdates: function(processNumber, processUpdates) {
+    var el = this.windowDocument.getElementById('updates-list');
+    el.innerHTML += "<li class=\"pure-menu-item\"><ul>" + processNumber;
+    processUpdates.forEach(function(update) {
+      el.innerHTML += "<li>" + update.date + ": " + update.update + "</li>";
+    });
+    el.innerHTML += "</ul></li>";
   }
 }
