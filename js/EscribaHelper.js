@@ -23,7 +23,7 @@ var EscribaHelper = {
     var processUpdates = null;
     if (number && shouldCollectUpdates) {
       processUpdates = this._retrieveLastUpdates(processInfo);
-      if (processUpdates) { Sidebar.addUpdates(number, processUpdates); }
+      if (processUpdates.length > 0) { Sidebar.addUpdates(number, processUpdates); }
     }
     ProcessStore.updateProcess(number, {isViewed: true, updates: processUpdates});
   },
