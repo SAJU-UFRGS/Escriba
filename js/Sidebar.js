@@ -41,6 +41,7 @@ var Sidebar = {
     this._createSidebar();
     this._setUpToggleButton();
     this._slideContent();
+    this._addAllUpdates();
   },
 
   toggleSidebar: function() {
@@ -64,5 +65,18 @@ var Sidebar = {
     processUpdates.forEach(function(update) {
       el.innerHTML += "<li class=\"pure-menu-item\">" + update.date + ": " + update.update + "</li>";
     });
+  },
+
+  _addAllUpdates: function() {
+    ProcessStore.getUpdatedProcesses(this._addUpdatedProcesses);
+  },
+
+  _addUpdatedProcesses: function(processes) {
+    console.log(processes);
+    if (processes !== undefined) {
+      processes.forEach(function(process) {
+          Sidebar.addUpdates(process.number, process.updates);
+      });
+    }
   }
 }
