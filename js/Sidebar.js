@@ -72,7 +72,6 @@ var Sidebar = {
   },
 
   _addUpdatedProcesses: function(processes) {
-    console.log(processes);
     if (processes !== undefined) {
       processes.forEach(function(process) {
           Sidebar.addUpdates(process.number, process.updates);
