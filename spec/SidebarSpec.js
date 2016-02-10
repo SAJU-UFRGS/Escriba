@@ -87,7 +87,9 @@ describe('Sidebar', function() {
       ];
 
       iframeDocument = jasmine.createSpyObj('iframe', ['getElementById']);
-      iframeDocument.getElementById = function() { return updatesList };
+      iframeDocument.getElementById = function(id) {
+        if (id == 'updates-list') return updatesList;
+      };
 
       Sidebar.windowDocument = iframeDocument;
     });
@@ -102,6 +104,26 @@ describe('Sidebar', function() {
       Sidebar._addUpdatedProcesses(updatesProcesses);
 
       expect(updatesList.innerHTML).toContain('10/10/10: Hi');
+    });
+  });
+
+  describe('clearUpdates', function () {
+    beforeEach(function() {
+      updatesList = {
+        innerHTML: "<li>info</li>",
+      };
+      iframeDocument = jasmine.createSpyObj('iframe', ['getElementById']);
+      iframeDocument.getElementById = function(id) {
+        if (id == 'updates-list') return updatesList;
+      };
+
+      Sidebar.windowDocument = iframeDocument;
+    });
+
+    it('removes all updates', function () {
+      Sidebar.clearUpdates();
+
+      expect(updatesList.innerHTML).toBe('');
     });
   });
 });
