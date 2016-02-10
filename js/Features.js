@@ -1,3 +1,2 @@
 var Features = {
-  showSidebar: false
 };
