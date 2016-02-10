@@ -1,12 +1,15 @@
 describe('Sidebar', function() {
+  var iframeDocument, updatesList;
+
   describe('toggles sidebar', function() {
-    var iframeDocument;
-    var sidebar = {
-      id: 'sidebar', style: {}, parentNode: { removeChild: function() {} },
-      addEventListener: function() {}
-    };
+    var sidebar;
 
     beforeEach(function() {
+      sidebar = {
+        id: 'sidebar', style: {}, parentNode: { removeChild: function() {} },
+        addEventListener: function() {}
+      };
+
       iframeDocument = jasmine.createSpyObj('iframe',
         ['getElementById', 'getElementsByClassName', 'createElement']);
       iframeDocument.getElementById = function() { return sidebar };
@@ -24,6 +27,7 @@ describe('Sidebar', function() {
     });
 
     it('closes sidebar', function() {
+      Sidebar.setUp();
       Sidebar.toggleSidebar();
 
       expect(sidebar.className).toContain("hidden");
@@ -31,6 +35,8 @@ describe('Sidebar', function() {
     });
 
     it('opens sidebar', function() {
+      Sidebar.setUp();
+      Sidebar.toggleSidebar();
       Sidebar.toggleSidebar();
 
       expect(sidebar.innerHTML).toContain('Movimentações Recentes');
@@ -39,15 +45,14 @@ describe('Sidebar', function() {
   });
 
   describe('adds updates', function() {
-    var iframeDocument;
-    var updatesList = {
-      innerHTML: "",
-      appendChild: function(text) {
-        this.innerHTML += text;
-      }
-    };
-
     beforeEach(function() {
+      updatesList = {
+        innerHTML: "",
+        appendChild: function(text) {
+          this.innerHTML += text;
+        }
+      };
+
       iframeDocument = jasmine.createSpyObj('iframe', ['getElementById']);
       iframeDocument.getElementById = function() { return updatesList };
 
@@ -62,24 +67,25 @@ describe('Sidebar', function() {
   });
 
   describe('adds all updates', function() {
-    var iframeDocument;
-    var updatesList = {
-      innerHTML: "",
-      appendChild: function(text) {
-        this.innerHTML += text;
-      }
-    };
-    var updatesProcesses = [
-      {
-        "number": "123457",
-        "updates": [{
-          "date": "10/10/10",
-          "update": "Hi"
-        }]
-      }
-    ];
+    var updatesProcesses;
 
     beforeEach(function() {
+      updatesList = {
+        innerHTML: "",
+        appendChild: function(text) {
+          this.innerHTML += text;
+        }
+      };
+      updatesProcesses = [
+        {
+          "number": "123457",
+          "updates": [{
+            "date": "10/10/10",
+            "update": "Hi"
+          }]
+        }
+      ];
+
       iframeDocument = jasmine.createSpyObj('iframe', ['getElementById']);
       iframeDocument.getElementById = function() { return updatesList };
 
