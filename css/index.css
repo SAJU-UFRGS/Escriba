@@ -2,29 +2,41 @@
   position: fixed;
   top: 0%;
   left: 0%;
-  width: 20%;
+  width: 21%;
   height: 100%;
   z-index: 99999;
-  background: #191818;
-  font-size: 16px;
+  background: #83AF9B;
+  font-size: 12px;
   overflow: scroll;
 }
 
 #toggle-button {
   content: "-";
   position: fixed;
-  top: 8%;
-  left: 18%;
+  top: 14%;
+  left: 19%;
+  width: 4%;
   z-index: 99999;
   font-size: 20px;
-}
-
-#sidebar-content span {
-  color: #FFF;
-  margin: 7px;
+  color: #83AF9B;
 }
 
 .custom-restricted-width {
   /* To limit the menu width to the content of the menu: */
   display: inline-block;
+}
+
+#sidebar-title {
+  color: #ECE5CE;
+  weight: 700;
+  margin: 7px;
+  font-size: 16px;
+}
+
+.update-heading {
+  color: #18402E;
+}
+
+.update-content {
+  color: #376C54;
 }

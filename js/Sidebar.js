@@ -26,10 +26,14 @@ var Sidebar = {
 
   addUpdates: function(processNumber, processUpdates) {
     var el = this.windowDocument.getElementById('updates-list');
-    el.innerHTML += "<li class=\"pure-menu-heading\">" + processNumber + "</li>";
+    el.innerHTML += "<li class=\"update-heading\">" + processNumber + "</li>";
     processUpdates.forEach(function(update) {
-      el.innerHTML += "<li class=\"pure-menu-item\">" + update.date + ": " + update.update + "</li>";
+      el.innerHTML += "<li class=\"update-content\">" + update.date + ": " + Sidebar._capitalizeFirstLetter(update.update) + "</li>";
     });
+  },
+
+  _capitalizeFirstLetter: function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   },
 
   _createSidebar: function() {
@@ -38,7 +42,7 @@ var Sidebar = {
     sidebar.className = "pure-menu custom-restricted-width";
     sidebar.innerHTML = "\
       <div id=\"sidebar-content\">\
-        <span class=\"pure-menu-heading\">Movimentações Recentes</span>\
+        <span id=\"sidebar-title\" class=\"pure-menu-heading\">Movimentações Recentes</span>\
         <ul id=\"updates-list\" class=\"pure-menu-list\">\
         </ul>\
       </div>\
