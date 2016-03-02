@@ -1,6 +1,6 @@
 {
   "name": "SAJU Secretário",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "manifest_version": 2,
   "homepage_url": "https://github.com/SAJU-UFRGS/",
   "description": "SAJU - TJRS - Extension",
@@ -19,10 +19,6 @@
         "http://www.tjrs.jus.br/busca/?tb=proc"
       ],
       "run_at": "document_end",
-      "css": [
-        "css/index.css",
-        "node_modules/purecss/build/pure-min.css"
-      ],
       "js": [
         "js/Features.js",
         "js/EscribaHelper.js",
