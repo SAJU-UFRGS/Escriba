@@ -3,10 +3,17 @@ var Popup = {
     var registerButton, restartButton, clearButton;
 
     registerButton = document.getElementById('register');
-    registerButton.addEventListener('click', DocUploader.loadProcesses);
+    registerButton.addEventListener('click', function () {
+      DocUploader.loadProcesses(function () {
+        chrome.tabs.reload();
+      });
+    });
 
     restartButton = document.getElementById('restart');
-    restartButton.addEventListener('click', Popup.clearAllProcessesStatus);
+    restartButton.addEventListener('click', function () {
+      Popup.clearAllProcessesStatus();
+      chrome.tabs.reload();
+    });
 
     clearButton = document.getElementById('new');
     clearButton.addEventListener('click', Popup.newList);

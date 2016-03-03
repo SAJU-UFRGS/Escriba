@@ -1,10 +1,11 @@
 var DocUploader = {
-  loadProcesses: function () {
+  loadProcesses: function (successCallback) {
     var value, processesList;
     value = Popup.getValueFromInput();
     processesList = Parser.parseToListOfProcesses(value);
 
     DocUploader.store(processesList);
+    successCallback();
   },
 
   store: function (processesList) {
