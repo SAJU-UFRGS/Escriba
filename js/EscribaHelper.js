@@ -23,7 +23,7 @@ var EscribaHelper = {
     var processUpdates = null;
     if (number && shouldCollectUpdates) {
       processUpdates = this._retrieveLastUpdates(processInfo);
-      if (processUpdates.length > 0) { Sidebar.addUpdates(number, processUpdates); }
+      if (processUpdates.length > 0) { Sidebar.addUpdates(number, processUpdates, true); }
     }
     ProcessStore.updateProcess(number, {isViewed: true, updates: processUpdates});
   },
@@ -50,6 +50,7 @@ var EscribaHelper = {
 
     if (processInput) {
       this._setValueAndFocusOnCaptcha(processInput);
+      Sidebar.rerenderAllUpdates();
     } else if (processInfo) {
       processURI = processInfo.getElementsByTagName('table')[0].firstChild.baseURI;
       this._retrieveInfoFromPage({uri: processURI, processInfo: processInfo, shouldCollectUpdates: true});

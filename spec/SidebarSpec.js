@@ -59,10 +59,18 @@ describe('Sidebar', function() {
       Sidebar.windowDocument = iframeDocument;
     });
 
-    it('adds update to the list', function() {
+    it('adds regular update to the list', function() {
       Sidebar.addUpdates('1234', [{ date: '10/10/10', update: 'hi' }]);
 
       expect(updatesList.innerHTML).toContain('10/10/10: Hi');
+      expect(updatesList.innerHTML).not.toContain('last-update');
+    });
+
+    it('adds last update to the list', function() {
+      Sidebar.addUpdates('1234', [{ date: '10/10/10', update: 'hi' }], true);
+
+      expect(updatesList.innerHTML).toContain('10/10/10: Hi');
+      expect(updatesList.innerHTML).toContain('last-update');
     });
   });
 

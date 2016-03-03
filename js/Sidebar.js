@@ -6,7 +6,6 @@ var Sidebar = {
     this._createSidebar();
     this._setUpToggleButton();
     this._slideContent();
-    this._addAllUpdates();
   },
 
   toggleSidebar: function() {
@@ -24,17 +23,30 @@ var Sidebar = {
     this._slideButton();
   },
 
-  addUpdates: function(processNumber, processUpdates) {
+  addUpdates: function(processNumber, processUpdates, isNew) {
     var el = this.windowDocument.getElementById('updates-list');
-    el.innerHTML += "<li class=\"update-heading\">" + processNumber + "</li>";
+
+    var lastUpdateHeading = isNew ? "last-update-heading" : "";
+    var lastUpdate = isNew ? "last-update" : "";
+
+    el.innerHTML += "<h4 class=\"update-heading " + lastUpdateHeading + "\">" +
+      "Processo " + processNumber + "</h4>";
+
     processUpdates.forEach(function(update) {
-      el.innerHTML += "<li class=\"update-content\">" + update.date + ": " + Sidebar._capitalizeFirstLetter(update.update) + "</li>";
+      el.innerHTML += "<li class=\"update-content " + lastUpdate + "\">" +
+        update.date + ": " + Sidebar._capitalizeFirstLetter(update.update) +
+        "</li>";
     });
   },
 
   clearUpdates: function () {
     var el = this.windowDocument.getElementById('updates-list');
     el.innerHTML = "";
+  },
+
+  rerenderAllUpdates: function () {
+    this.clearUpdates();
+    this._addAllUpdates();
   },
 
   _capitalizeFirstLetter: function(string) {
@@ -48,7 +60,7 @@ var Sidebar = {
     sidebar.innerHTML = "\
       <div id=\"sidebar-content\">\
         <span id=\"sidebar-title\" class=\"pure-menu-heading\">Movimentações Recentes</span>\
-        <ul id=\"updates-list\" class=\"pure-menu-list\">\
+        <ul id=\"updates-list\">\
         </ul>\
       </div>\
       <span id=\"toggle-button\" class=\"pure-button\">+</span>\

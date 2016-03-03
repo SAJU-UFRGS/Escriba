@@ -14,6 +14,7 @@ describe('EscribaHelper', function() {
 
     spyOn(ProcessStore, 'getNextProcess');
     spyOn(ProcessStore, 'updateProcess');
+    spyOn(Sidebar, 'rerenderAllUpdates');
   });
 
   describe('input page', function() {
@@ -29,6 +30,7 @@ describe('EscribaHelper', function() {
       EscribaHelper.iframeDocument = iframeDocument;
       EscribaHelper.updateProcessForPage();
       expect(ProcessStore.getNextProcess).toHaveBeenCalled();
+      expect(Sidebar.rerenderAllUpdates).toHaveBeenCalled();
 
       callback = ProcessStore.getNextProcess.calls.mostRecent().args[0];
       callback({number: '1234567'});
@@ -68,7 +70,7 @@ describe('EscribaHelper', function() {
     });
 
     it('adds updates to sidebar when on info page', function() {
-      expect(Sidebar.addUpdates).toHaveBeenCalledWith('1234567', [{ date: '10/10/10', update: 'New Update' }]);
+      expect(Sidebar.addUpdates).toHaveBeenCalledWith('1234567', [{ date: '10/10/10', update: 'New Update' }], true);
     });
   });
 

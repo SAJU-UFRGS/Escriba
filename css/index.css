@@ -35,10 +35,22 @@
   padding: 5px 10px;
 }
 
+#updates-list li {
+  padding: 3px;
+}
+
 .update-heading {
   color: #18402E;
 }
 
 .update-content {
   color: #376C54;
+}
+
+.last-update-heading {
+  font-weight: 700;
+}
+
+.last-update {
+  font-weight: 700;
 }
